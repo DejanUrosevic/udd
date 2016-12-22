@@ -4,33 +4,44 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "KORISNICI")
+@Table(name = "BOOKUSERS")
 public class User implements Serializable{
 
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "name")
-	private String name;
+	@Column(name = "firstname", length = 30, nullable = false)
+	private String firstname;
 	
-	@Column(name = "username")
-	private String userName;
+	@Column(name = "lastname", length = 30, nullable = false)
+	private String lastname;
 	
-	@Column(name = "password")
+	@Column(name = "username", length = 10, nullable = false)
+	private String username;
+	
+	@Column(name = "password", length = 10, nullable = false)
 	private String password;
+	
+	@Enumerated(EnumType.STRING)
+	private UserType type;
+	
+	@ManyToOne
+	@JoinColumn(name = "category", nullable = true)
+	private Category category;
 
 	public int getId() {
 		return id;
@@ -40,20 +51,28 @@ public class User implements Serializable{
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -62,6 +81,14 @@ public class User implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public UserType getType() {
+		return type;
+	}
+
+	public void setType(UserType type) {
+		this.type = type;
 	}
 
 	public User() {
