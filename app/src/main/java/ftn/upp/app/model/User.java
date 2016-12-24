@@ -90,6 +90,14 @@ public class User implements Serializable{
 	public void setType(UserType type) {
 		this.type = type;
 	}
+	
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
 	public User() {
 		super();
