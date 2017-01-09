@@ -1,5 +1,7 @@
 package ftn.upp.app.controller;
 
+import java.util.Date;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftn.upp.app.model.User;
 import ftn.upp.app.service.UserService;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -20,17 +24,25 @@ public class LogInController {
 	UserService userService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<User> logIn(@RequestBody String payload){
+	public ResponseEntity<LoginResponse> logIn(@RequestBody String payload){
 		
 		JSONObject json = new JSONObject(payload);
+		
+		if(json.getString("username").equals("") || json.getString("username").equals(null) 
+				|| json.getString("password").equals("") || json.getString("password").equals(null)){
+			return new ResponseEntity<LoginResponse>(HttpStatus.UNAUTHORIZED);
+		}
+			
 		
 		User user = userService.logIn(json.getString("username"), json.getString("password"));
 		
 		if(user != null){
-			return new ResponseEntity<User>(user, HttpStatus.OK);
+			String token = Jwts.builder().setSubject(user.getUsername()).claim("roles", user.getType())
+					.setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact();
+			return new ResponseEntity<LoginResponse>(new LoginResponse(token), HttpStatus.OK);
 		}
 		
-		return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+		return new ResponseEntity<LoginResponse>(HttpStatus.UNAUTHORIZED);
 	}
 	
 	@RequestMapping(value = "/singup", method = RequestMethod.POST, consumes = "application/json")
@@ -53,4 +65,13 @@ public class LogInController {
 		
 		return new ResponseEntity<User>(HttpStatus.FORBIDDEN);
 	}
+	
+	@SuppressWarnings("unused")
+    private static class LoginResponse {
+        public String token;
+
+        public LoginResponse(final String token) {
+            this.token = token;
+        }
+    }
  }

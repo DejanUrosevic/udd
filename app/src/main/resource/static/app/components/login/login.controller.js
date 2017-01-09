@@ -12,6 +12,7 @@
 		
 		lic.singup = SingUp;
 		lic.login = LogIn;
+		lic.checkRoles = CheckRoles;
 		
 		function SingUp(){
 			$http.post('http://localhost:8080/user/singup',{firstname: $scope.user.username,
@@ -32,18 +33,30 @@
 		}
 		
 		function LogIn(){
-			alert("user " + $scope.user.username + " pass " + $scope.user.password);
 			$http.post('http://localhost:8080/user/login',{username: $scope.user.username, 
 														   password: $scope.user.password})
 			.then(function(data){
-				if(data.status == 200){
-					$state.go('home');
-				} else {
-					console.log('Korisnik ne postoji');
+				$http.defaults.headers.common.Authorization = 'Bearer ' + data.data.token;
+				
+				if (localStorage) {
+					localStorage.setItem('key', data.data.token);
 				}
-			})
-			.error(function(data, status) {
-				console.error('Repos error', status, data);
+				
+				lic.checkRoles();
+			});
+			
+		}
+		
+		function CheckRoles(){
+			if(localStorage.getItem("key") === null || localStorage.getItem("key") === undefined){
+				localStorage.clear();
+				$state.go('login');
+			}
+			
+			$http.get('http://localhost:8080/api/role')
+			.then(function(data){
+				localStorage.setItem('rola', data.data.role);
+				$state.go('home');
 			});
 		}
 	};

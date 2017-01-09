@@ -8,3 +8,4 @@ insert into category (name) values ('Naucna fantastika');
 insert into category (name) values ('Akcija');
 
 insert into bookusers(firstname, lastname, password, type, username, category) values ('Petar', 'Petrovic', 'pera', 'ADMINISTRATOR', 'pera', null);
+insert into bookusers(firstname, lastname, password, type, username, category) values ('Marko', 'Markovic', 'marko', 'PREPLATNIK', 'marko', null);

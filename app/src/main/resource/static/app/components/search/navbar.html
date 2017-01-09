@@ -4,10 +4,11 @@
 			<button type="button" class="navbar-toggle" data-toggle="dropdown"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
 			<!-- <a data-toggle="dropdown" href="#">Dropdown trigger</a> -->
 			<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-				<li><a href="#head" class="active">Hello</a></li>
-				<li><a href="#about">About me</a></li>
-				<li><a href="#themes">Themes</a></li>
-				<li><a href="#contact">Get in touch</a></li>
+				<li><a ng-click="sec.search()">Search</a></li>
+				<li><a ng-click="sec.category()">Category</a></li>
+				<li ng-show="sec.rola === 'admin' || sec.rola === 'preplatnik'"><a ng-click="sec.profil()">Profil</a></li>
+				<li ng-show="sec.rola === 'admin'"><a ng-click="sec.users()">Users</a>
+				<li><a ng-click="sec.singOut()">Sing out</a></li>
 			</ul>
 		</div>
 	</div>

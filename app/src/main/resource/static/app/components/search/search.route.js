@@ -12,7 +12,9 @@
 			url: '/home',
 			views:{
 				navbar: {
-					templateUrl: "app/components/search/navbar.html"
+					templateUrl: "app/components/search/navbar.html",
+					controller : 'SearchController',
+					controllerAs : 'sec'
 				},
 				content: {
 					templateUrl: "app/components/search/content.html",

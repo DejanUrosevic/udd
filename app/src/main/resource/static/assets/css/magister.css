@@ -34,7 +34,7 @@ body {
 	float:left;
 	display:block;
 	padding: 9px 10px;
-	background: rgba(255, 255, 255, 0.2);
+	background: rgba(0, 0, 0, 0.2);
 	background-image: none;
 	border: 0 none;
 	top:0px; 
@@ -87,7 +87,7 @@ body {
 .mainmenu .dropdown-menu a { 
 	padding:10px 10px;
 	margin:0;
-	color:white;
+	color:#000000;
 	text-decoration: none;
 	-webkit-border-radius: 2px;
 	   -moz-border-radius: 2px;
@@ -142,7 +142,7 @@ a:hover, a:active { color:#fff; text-decoration: underline; }
 	font-weight:normal;
 	font-size:7em;
 	margin-bottom:15px; 
-	color:#FDF9F4; 
+	color:#000000; 
 	line-height:1em;
 }
 .subtitle { 
@@ -156,6 +156,7 @@ a:hover, a:active { color:#fff; text-decoration: underline; }
 	line-height:1.3em;
 	font-weight:normal;
 	margin-bottom:75px;
+	color:#000000;
 }
 
 @media (max-width: 767px) {
