@@ -33,7 +33,7 @@
 		}
 		
 		function Profil(){
-			$state.go('profil');
+			$state.go('profile');
 		}
 		
 		function Users(){

@@ -1,3 +1,3 @@
 (function(){
-	angular.module("upp-ebook", ['upp-ebook.login', 'upp-ebook.search']);
+	angular.module("upp-ebook", ['upp-ebook.login', 'upp-ebook.search', 'upp-ebook.profile']);
 })()

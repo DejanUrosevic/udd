@@ -2,6 +2,10 @@ package ftn.upp.app.controller;
 
 import java.util.Date;
 
+import javax.jws.soap.SOAPBinding.Use;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,12 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ftn.upp.app.model.User;
 import ftn.upp.app.service.UserService;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
 @RequestMapping(value = "/user")
-public class LogInController {
+public class UserController {
 
 	@Autowired
 	UserService userService;
@@ -64,6 +69,34 @@ public class LogInController {
 		}
 		
 		return new ResponseEntity<User>(HttpStatus.FORBIDDEN);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<User> getUser(final HttpServletRequest req) throws ServletException{
+
+		final HttpServletRequest request = (HttpServletRequest) req;
+
+		final String authHeader = request.getHeader("Authorization");
+		if (authHeader == null || !authHeader.startsWith("Bearer ") || authHeader.equals("Bearer null") || authHeader.endsWith("null")) {
+			throw new ServletException("Missing or invalid Authorization header.");
+		}
+
+		String token = authHeader.substring(7); // The part after "Bearer "
+
+		Claims claims = Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token).getBody();
+
+		String username = (String) claims.get("sub");
+		
+		User user = userService.findByUsername(username);
+		
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = "application/json")
+	public ResponseEntity<User> updateUser(@RequestBody String payload){
+		System.out.println(payload);
+		
+		return null;
 	}
 	
 	@SuppressWarnings("unused")

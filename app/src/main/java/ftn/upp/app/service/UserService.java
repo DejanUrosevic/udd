@@ -7,4 +7,6 @@ public interface UserService {
 	public User logIn(String username, String password);
 	
 	public boolean singUp(User user);
+	
+	public User findByUsername(String username);
 }
