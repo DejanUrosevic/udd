@@ -9,4 +9,6 @@ public interface UserService {
 	public boolean singUp(User user);
 	
 	public User findByUsername(String username);
+	
+	public User saveOrUpdate(User user);
 }

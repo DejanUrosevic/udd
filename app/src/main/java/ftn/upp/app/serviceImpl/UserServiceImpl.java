@@ -51,4 +51,27 @@ public class UserServiceImpl implements UserService{
 		return userRepository.findByUsername(username);
 	}
 
+	@Override
+	public User saveOrUpdate(User user) {
+		
+		User u = userRepository.findByUsername(user.getUsername());
+		
+		if(u == null){
+			userRepository.save(user);
+			return user;
+		} else {
+			u.setCategory(user.getCategory());
+			u.setFirstname(user.getFirstname());
+			u.setLastname(user.getLastname());
+			u.setPassword(user.getPassword());
+			u.setType(user.getType());
+			
+			userRepository.save(u);
+		}
+		
+		return u;
+	}
+
+	
+
 }

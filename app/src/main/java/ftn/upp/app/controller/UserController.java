@@ -96,7 +96,32 @@ public class UserController {
 	public ResponseEntity<User> updateUser(@RequestBody String payload){
 		System.out.println(payload);
 		
-		return null;
+		JSONObject json = new JSONObject(payload);
+		
+		User user = userService.findByUsername(json.getString("username"));
+
+		user.setFirstname(json.getString("firstname"));
+		user.setLastname(json.getString("lastname"));
+		
+		String newPass = "";
+		String repeatPass = "";
+		
+		try {
+			newPass = json.getString("newPass");
+			repeatPass = json.getString("repeatPass");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		if(!newPass.equals("") && !repeatPass.equals("")){
+			if(newPass.equals(repeatPass)){
+				user.setPassword(newPass);
+			}
+		}
+			
+		User u = userService.saveOrUpdate(user);
+		
+		return new ResponseEntity<User>(u, HttpStatus.OK);
 	}
 	
 	@SuppressWarnings("unused")

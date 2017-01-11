@@ -348,3 +348,19 @@ a:hover, a:active { color:#fff; text-decoration: underline; }
 	font-family: Helvetica, Arial, sans-serif;
 }
 
+.okvir {
+	background:rgba(40,57,101,.9);
+}
+
+.btn {
+	background:rgba(255,255,0,.9);
+}
+
+.title2 {
+	font-family: 'Wire One', Helvetica, Arial, sans-serif;
+	font-weight:normal;
+	font-size:5em;
+	margin-bottom:15px; 
+	color:#000000; 
+	line-height:1em;
+}
