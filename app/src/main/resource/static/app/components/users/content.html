@@ -1,0 +1,35 @@
+<div>	
+	<section class="section" id="profile">
+		<div class="container okvir">
+		
+			<h3 class="text-center title">Users</h3>
+			
+			<div class="row" ng-if="usc.rola === 'admin'">
+				<div class="text-center" >
+					<button class="btn btn-primary" type="submit" ng-click="usc.addUser()">Add new user</button>
+				</div>
+			</div>
+			
+			<br/>
+			
+			<div class="row" ng-repeat="user in usc.users" ng-if="usc.rola === 'admin'">
+				<br/>
+				<div class="col-md-2 col-md-offset-2">
+					<p class="p-text">{{user.firstname}} {{user.lastname}}</p>
+				</div>	
+					<div class="col-md-1">
+					<p class="p-text">{{user.username}}</p>
+				</div>
+					<div class="col-md-2">
+					<p class="p-text">{{user.category.name}}</p>
+				</div>
+					<div class="col-md-2">
+					<p class="p-text">{{user.type.name}}</p>
+				</div>
+				<div class="col-md-1">
+					<button class="btn btn-primary" type="submit" ng-click="usc.changeUser(user.id)">Change user data</button>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

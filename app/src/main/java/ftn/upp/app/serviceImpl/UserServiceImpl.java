@@ -1,5 +1,7 @@
 package ftn.upp.app.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,12 +9,16 @@ import ftn.upp.app.model.User;
 import ftn.upp.app.model.UserType;
 import ftn.upp.app.repository.UserRepository;
 import ftn.upp.app.service.UserService;
+import ftn.upp.app.service.UserTypeService;
 
 @Service
 public class UserServiceImpl implements UserService{
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	UserTypeService userTypeService;
 	
 	@Override
 	public User logIn(String username, String password) {
@@ -32,9 +38,10 @@ public class UserServiceImpl implements UserService{
 	public boolean singUp(User user) {
 		
 		User u = userRepository.findByUsername(user.getUsername());
+		UserType ut = userTypeService.findOne(3);
 		
 		if(u == null){
-			user.setType(UserType.POSETILAC);
+			user.setType(ut);
 			user.setCategory(null);
 			
 			userRepository.save(user);
@@ -70,6 +77,16 @@ public class UserServiceImpl implements UserService{
 		}
 		
 		return u;
+	}
+
+	@Override
+	public List<User> findAll() {
+		return (List<User>) userRepository.findAll();
+	}
+
+	@Override
+	public User findOne(int id) {
+		return userRepository.findOne(id);
 	}
 
 	

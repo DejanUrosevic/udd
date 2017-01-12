@@ -35,7 +35,8 @@ public class User implements Serializable{
 	@Column(name = "password", length = 10, nullable = false)
 	private String password;
 	
-	@Enumerated(EnumType.STRING)
+	@ManyToOne
+	@JoinColumn(name = "type", nullable = true)
 	private UserType type;
 	
 	@ManyToOne

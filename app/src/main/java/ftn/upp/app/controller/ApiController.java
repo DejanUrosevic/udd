@@ -38,11 +38,11 @@ public class ApiController {
 
 		String rola = (String) claims.get("roles");
 		
-		if(rola.equals("ADMINISTRATOR")){
+		if(rola.equals("administrator")){
 			return new RoleUsername("admin");
-		} else if (rola.equals("PREPLATNIK")){
+		} else if (rola.equals("preplatnik")){
 			return new RoleUsername("preplatnik");
-		} else if (rola.equals("POSETILAC")){
+		} else if (rola.equals("posetilac")){
 			return new RoleUsername("posetilac");
 		}
 

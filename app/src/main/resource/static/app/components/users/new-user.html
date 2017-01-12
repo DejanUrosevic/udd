@@ -1,0 +1,89 @@
+<div>	
+	<section class="section" id="profile">
+		<div class="container okvir">
+		
+			<h5 class="text-center title2" ng-if="usc.addUserBool === 'true'">Add new user</h5>
+			<h4 class="text-center title2" ng-if="usc.updateUserBool === 'true'">Update user</h4>
+			
+			<br/>
+
+			<div class="row">
+				<div class="col-md-1 col-md-offset-4">
+					<p class="p-text">Firsname: </p>
+				</div>
+				<div class="col-md-3">
+					<input type="text" class="form-control input-md" ng-model="usc.user.firstname">
+				</div>	
+			</div>
+			
+			<br/>
+			
+			<div class="row">
+				<div class="col-md-1 col-md-offset-4">
+					<p class="p-text">Lastname: </p>
+				</div>
+				<div class="col-md-3">
+					<input type="text" class="form-control input-md" ng-model="usc.user.lastname">
+				</div>	
+			</div>
+			
+			<br/>
+			
+			<div class="row">
+				<div class="col-md-1 col-md-offset-4">
+					<p class="p-text">Username: </p>
+				</div>
+				<div class="col-md-3" ng-if="usc.updateUserBool === 'true'">
+					<input type="text" class="form-control input-md" ng-model="usc.user.username" disabled="disabled">
+				</div>	
+				<div class="col-md-3" ng-if="usc.addUserBool === 'true'">
+					<input type="text" class="form-control input-md" ng-model="usc.user.username">
+				</div>
+			</div>
+			
+			<br/>
+			
+			<div class="row">
+				<div class="col-md-1 col-md-offset-4">
+					<p class="p-text">Password: </p>
+				</div>
+				<div class="col-md-3">
+					<input type="text" class="form-control input-md" ng-model="usc.user.password">
+				</div>	
+			</div>
+			
+			<br/>
+			
+			<div class="row">
+				<div class="col-md-1 col-md-offset-4">
+					<p class="p-text">Type: </p>
+				</div>
+				<div class="col-md-3">
+					<select ng-options="type as type.name for type in usc.types track by type.id" ng-model="usc.user.type"></select>
+				</div>	
+			</div>
+			
+			<br/>
+			
+			<div class="row">
+				<div class="col-md-1 col-md-offset-4">
+					<p class="p-text">Category: </p>
+				</div>
+				<div class="col-md-3">
+					<select ng-options="category as category.name for category in usc.categories track by category.id" ng-model="usc.user.category"></select>
+				</div>	
+			</div>
+			
+			<br/>
+			
+			<div class="text-center" ng-if="usc.addUserBool === 'true'">
+				<button class="btn btn-primary" type="submit" ng-click="usc.saveUser()">Save</button>
+			</div>
+			
+			<div class="text-center" ng-if="usc.updateUserBool === 'true'">
+				<button class="btn btn-primary" type="submit" ng-click="usc.updateUser()">Update</button>
+			</div>
+			
+		</div>
+	</section>
+</div>
