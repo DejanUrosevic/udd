@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
+import java.text.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class BookController {
 	BookService bookService;
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public ResponseEntity<Book> upload(@RequestParam(value = "file") MultipartFile file) throws IOException, URISyntaxException{
+	public ResponseEntity<Book> upload(@RequestParam(value = "file") MultipartFile file) throws IOException, URISyntaxException, ParseException{
 		
 		if(!file.getContentType().equals("application/pdf")){
 			return new ResponseEntity<Book>(HttpStatus.FORBIDDEN);

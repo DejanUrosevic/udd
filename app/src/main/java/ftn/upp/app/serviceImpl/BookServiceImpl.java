@@ -1,6 +1,7 @@
 package ftn.upp.app.serviceImpl;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -9,52 +10,73 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.index.IndexableField;
+import org.apache.tika.exception.TikaException;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.pdf.PDFParser;
+import org.apache.tika.sax.BodyContentHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.xml.sax.SAXException;
 
 import ftn.upp.app.model.Book;
 import ftn.upp.app.service.BookService;
-import ftn.upp.app.util.UDDIndexer;
 
 @Service
 public class BookServiceImpl implements BookService{
 
 	@Override
-	public Book upload(MultipartFile file) throws IOException, URISyntaxException {
+	public Book upload(MultipartFile file) throws IOException, URISyntaxException, ParseException {
 		
-		Path path = Paths.get("C:\\Users\\Dejan\\git\\upp\\app\\src\\main\\resource\\pdf\\" + file.getOriginalFilename());
+		Path path = Paths.get("C:\\Users\\Dejan.UROSEVIC\\git\\uddd\\app\\src\\main\\resource\\pdf\\" + file.getOriginalFilename());
 		Files.write(path, file.getBytes());
 		
-		File pdf = new File("C:\\Users\\Dejan\\git\\upp\\app\\src\\main\\resource\\pdf\\" + file.getOriginalFilename());
-		UDDIndexer indexer = new UDDIndexer(true);
-		indexer.index(pdf);
-		
-		Document[] docs = indexer.getAllDocuments();
+		File pdf = new File("C:\\Users\\Dejan.UROSEVIC\\git\\uddd\\app\\src\\main\\resource\\pdf\\" + file.getOriginalFilename());
 		
 		Book book = new Book();
-		for(Document d : docs){
-			for(IndexableField f : d.getFields()){
-				if(f.name().equals("title")){
-					book.setTitle(f.stringValue());
-				} else if (f.name().equals("author")){
-					book.setAuthor(f.stringValue());
-				} else if (f.name().equals("keyword")){
-					if(book.getKeywords() == null){
-						book.setKeywords(f.stringValue());
-					} else {
-						book.setKeywords(book.getKeywords() + "," + f.stringValue());
-					}
-				} else if (f.name().equals("fileName")){
-					book.setFilename(f.stringValue());
-				}
-			}
+		BodyContentHandler handler = new BodyContentHandler();
+		Metadata metadata = new Metadata();
+		FileInputStream inputstream = new FileInputStream(pdf);
+		ParseContext pcontext = new ParseContext();
+	      
+		//parsing the document using PDF parser
+		PDFParser pdfparser = new PDFParser(); 
+		try {
+			pdfparser.parse(inputstream, handler, metadata,pcontext);
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TikaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	      
+		//getting the content of the document
+		System.out.println("Contents of the PDF :" + handler.toString());
+	      
+		//getting metadata of the document
+		System.out.println("Metadata of the PDF:");
+		String[] metadataNames = metadata.names();
 		
-		System.out.println("dsad");
+		book.setAuthor(metadata.get("Author"));
+		book.setKeywords(metadata.get("Keywords"));
+		book.setTitle(metadata.get("title"));
+		book.setContent(handler.toString());
+		
+		DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(dateFormat.parse(metadata.get("created")));;
+		
+		book.setPublicationYear(calendar.get(Calendar.YEAR));
+		
+		for(String name : metadataNames) {
+			System.out.println(name+ " : " + metadata.get(name));
+	    }
 		
 		return book;
 	}

@@ -10,9 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.data.elasticsearch.annotations.Document;
 
 @Entity
 @Table(name = "BOOK")
+@Document(indexName = "books", type = "books", shards = 1)
 public class Book implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -46,6 +50,9 @@ public class Book implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "language", nullable = false)
 	private Language language;
+	
+	@Transient
+	private String content;
 
 	public int getId() {
 		return id;
@@ -117,6 +124,14 @@ public class Book implements Serializable{
 
 	public void setLanguage(Language language) {
 		this.language = language;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public Book() {

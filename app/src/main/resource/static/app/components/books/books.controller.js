@@ -32,7 +32,6 @@
                headers: {'Content-Type': undefined}
             })
             .then(function(data){
-            	boc.uploadedBook data.data;
             })
             .catch(function(){
             });
