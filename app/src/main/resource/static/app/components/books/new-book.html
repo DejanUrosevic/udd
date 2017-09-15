@@ -1,0 +1,95 @@
+<div>	
+	<section class="section" id="profile">
+		<div class="container okvir">
+		
+			<h5 class="text-center title2" ng-if="boc.addBool === 'true'">Add new book</h5>
+			<h4 class="text-center title2" ng-if="boc.updateBool === 'true'">Update book</h4>
+			
+			<br/>
+
+			<form accept-charset="UTF-8" enctype="multipart/form-data">
+				<div class="row">
+					<div class="col-md-2 col-md-offset-3">
+						<p class="p-text">File: </p>
+					</div>
+					<div class="col-md-4">
+						<input ng-change="boc.upload() class="form-control input-md" type="file" class="form-control input-md" file-model = "myFile" ng-model="boc.book.file" >
+					</div>
+					<div>
+						<button class="btn btn-primary" type="submit" ng-click="boc.upload()">Upload</button>
+					</div>	
+				</div>
+			</form>
+			
+			<div class="row">
+				<div class="col-sm-2 col-md-offset-3">    
+					<p class="p-text">Title: </p> 
+				</div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control input-md" ng-model="boc.newBook.title">
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-2 col-md-offset-3">    
+					<p class="p-text">Author: </p> 
+				</div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control input-md" ng-model="boc.newBook.author">
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-2 col-md-offset-3">    
+					<p class="p-text">Keywords: </p> 
+				</div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control input-md" ng-model="boc.newBook.keywords">
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-2 col-md-offset-3">    
+					<p class="p-text">Publication year: </p> 
+				</div>
+				<div class="col-sm-4">
+					<input type="text" class="form-control input-md" ng-model="boc.newBook.publicationYear">
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-2 col-md-offset-3">    
+					<p class="p-text">Category: </p> 
+				</div>
+				<div class="col-sm-4">
+					<select class="form-control input-md" ng-options = "category as category.name for category in boc.categories" ng-model="boc.newBook.category"></select>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-2 col-md-offset-3">    
+					<p class="p-text">Language: </p> 
+				</div>
+				<div class="col-sm-4">
+					<select class="form-control input-md" ng-options = "language as language.name for language in boc.languages" ng-model="boc.newBook.language"></select>
+				</div>
+			</div>
+			
+			
+			<br/>
+				
+			
+			
+			<br/>
+			
+			<div class="text-center" ng-if="boc.addBool === 'true'">
+				<button class="btn btn-primary" type="submit" ng-click="boc.saveBook()">Save</button>
+			</div>
+			
+			<div class="text-center" ng-if="boc.updateBool === 'true'">
+				<button class="btn btn-primary" type="submit" ng-click="cac.updateCategory()">Update</button>
+			</div>
+			
+		</div>
+	</section>
+</div>

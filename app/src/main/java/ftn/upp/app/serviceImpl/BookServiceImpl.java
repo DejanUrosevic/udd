@@ -14,21 +14,31 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.pdf.PDFParser;
 import org.apache.tika.sax.BodyContentHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.SAXException;
 
+import ftn.upp.app.elasticsearch.repository.BookElasticSearchRepository;
 import ftn.upp.app.model.Book;
+import ftn.upp.app.repository.BookRepository;
 import ftn.upp.app.service.BookService;
 
 @Service
 public class BookServiceImpl implements BookService{
+	
+	@Autowired
+	BookRepository bookRepository;
+	
+	@Autowired
+	BookElasticSearchRepository bookESRepository;
 
 	@Override
 	public Book upload(MultipartFile file) throws IOException, URISyntaxException, ParseException {
@@ -67,6 +77,8 @@ public class BookServiceImpl implements BookService{
 		book.setKeywords(metadata.get("Keywords"));
 		book.setTitle(metadata.get("title"));
 		book.setContent(handler.toString());
+		book.setMime(file.getContentType());
+		book.setFilename(file.getOriginalFilename());
 		
 		DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
 		Calendar calendar = Calendar.getInstance();
@@ -79,6 +91,20 @@ public class BookServiceImpl implements BookService{
 	    }
 		
 		return book;
+	}
+
+	@Override
+	public Book save(Book book) {
+		
+		Book savedBook = bookRepository.save(book);
+		bookESRepository.save(savedBook);
+		return savedBook;
+	}
+
+	@Override
+	public List<Book> search() {
+		
+		return null;
 	}
 
 }

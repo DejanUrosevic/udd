@@ -24,6 +24,23 @@
 				footer: {
 				}
 			}
+		})
+		.state("addBook",{
+			url: '/books/new',
+			views:{
+				navbar: {
+					templateUrl: "app/components/search/navbar.html",
+					controller : 'SearchController',
+					controllerAs : 'sec'
+				},
+				content: {
+					templateUrl: "app/components/books/new-book.html",
+					controller : 'BooksController',
+					controllerAs : 'boc'
+				},
+				footer: {
+				}
+			}
 		});
 	};
 })()

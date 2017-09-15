@@ -40,6 +40,10 @@
 			$state.go('users');
 		}
 		
+		function Books() {
+			$state.go('books');
+		}
+		
 		function SingOut(){
 			sec.token = null;
 			$http.defaults.headers.common.Authorization = '';

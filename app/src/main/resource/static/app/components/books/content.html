@@ -3,23 +3,16 @@
 		<div class="container okvir">
 			
 			<br/>
-
-		<form accept-charset="UTF-8" enctype="multipart/form-data">
-			<div class="row">
-				<div class="col-md-1 col-md-offset-4">
-					<p class="p-text">File: </p>
-				</div>
-				<div class="col-md-3">
-					<input type="file" class="form-control input-md" file-model = "myFile" ng-model="boc.book.file" >
-				</div>	
+			
+		<h3 class="text-center title">Books</h3>
+			
+		<div class="row" ng-if="boc.rola === 'admin'">
+			<div class="text-center" >
+				<button class="btn btn-primary" type="submit" ng-click="boc.addBook()">Add new book</button>
 			</div>
-		</form>
-			
-		<br/>
-			
-		<div class="text-center">
-			<button class="btn btn-primary" type="submit" ng-click="boc.upload()">Save</button>
 		</div>
+
+		
 			
 		</div>
 	</section>
