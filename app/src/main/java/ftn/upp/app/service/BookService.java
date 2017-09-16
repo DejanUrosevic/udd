@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import ftn.upp.app.dto.BookDto;
+import ftn.upp.app.dto.SearchDto;
 import ftn.upp.app.model.Book;
 
 public interface BookService {
@@ -15,5 +17,7 @@ public interface BookService {
 	
 	public Book save(Book book);
 	
-	public List<Book> search();
+	public List<BookDto> search(List<SearchDto> searchModel);
+	
+	public List<BookDto> findAll();
 }

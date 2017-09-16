@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import ftn.upp.app.dto.BookDto;
+import ftn.upp.app.dto.SearchDto;
 import ftn.upp.app.model.Book;
 import ftn.upp.app.service.BookService;
 
@@ -41,14 +44,21 @@ public class BookController {
 		
 	}
 	
-	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes="application/json")
+	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<Book> save(@RequestBody Book book){
 		System.out.println(book.toString());
 		return new ResponseEntity<Book>(bookService.save(book), HttpStatus.CREATED);
 	}
 	
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public ResponseEntity<List<Book>> elasticSearch(){
-		return new ResponseEntity<List<Book>>(bookService.search(), HttpStatus.OK);
+	@RequestMapping(value = "/search", method = RequestMethod.POST, consumes = "application/json")
+	public ResponseEntity<List<BookDto>> elasticSearch(@RequestBody List<SearchDto> searchModel){
+		System.out.println("nesto");
+		return new ResponseEntity<List<BookDto>>(bookService.search(searchModel), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public ResponseEntity<List<BookDto>> seacrhAll(){
+		
+		return new ResponseEntity<List<BookDto>>(bookService.findAll(), HttpStatus.OK);
 	}
 }

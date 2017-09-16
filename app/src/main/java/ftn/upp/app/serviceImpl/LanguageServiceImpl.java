@@ -25,4 +25,9 @@ public class LanguageServiceImpl implements LanguageService{
 		return (List<Language>) languageRepository.findAll();
 	}
 
+	@Override
+	public Language findByName(String name) {
+		return languageRepository.findByName(name);
+	}
+
 }

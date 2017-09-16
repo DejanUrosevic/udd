@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -21,15 +22,26 @@ import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.pdf.PDFParser;
 import org.apache.tika.sax.BodyContentHandler;
+import org.elasticsearch.common.unit.Fuzziness;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.SAXException;
 
+import ftn.upp.app.dto.BookDto;
+import ftn.upp.app.dto.SearchDto;
 import ftn.upp.app.elasticsearch.repository.BookElasticSearchRepository;
 import ftn.upp.app.model.Book;
 import ftn.upp.app.repository.BookRepository;
 import ftn.upp.app.service.BookService;
+import ftn.upp.app.util.Mapper;
+import static org.elasticsearch.index.query.MatchQueryBuilder.Operator.AND;
 
 @Service
 public class BookServiceImpl implements BookService{
@@ -39,14 +51,19 @@ public class BookServiceImpl implements BookService{
 	
 	@Autowired
 	BookElasticSearchRepository bookESRepository;
+	
+	@Autowired
+	ElasticsearchOperations operations;
 
+	Mapper mapper = new Mapper();
+	
 	@Override
 	public Book upload(MultipartFile file) throws IOException, URISyntaxException, ParseException {
 		
-		Path path = Paths.get("C:\\Users\\Dejan.UROSEVIC\\git\\uddd\\app\\src\\main\\resource\\pdf\\" + file.getOriginalFilename());
+		Path path = Paths.get("C:\\Users\\Dejan\\git\\udd\\app\\src\\main\\resource\\pdf\\" + file.getOriginalFilename());
 		Files.write(path, file.getBytes());
 		
-		File pdf = new File("C:\\Users\\Dejan.UROSEVIC\\git\\uddd\\app\\src\\main\\resource\\pdf\\" + file.getOriginalFilename());
+		File pdf = new File("C:\\Users\\Dejan\\git\\udd\\app\\src\\main\\resource\\pdf\\" + file.getOriginalFilename());
 		
 		Book book = new Book();
 		BodyContentHandler handler = new BodyContentHandler();
@@ -97,14 +114,56 @@ public class BookServiceImpl implements BookService{
 	public Book save(Book book) {
 		
 		Book savedBook = bookRepository.save(book);
-		bookESRepository.save(savedBook);
+		operations.putMapping(BookDto.class);
+		BookDto bookDto = mapper.fromBookToBookDto(savedBook);
+		bookESRepository.save(bookDto);
 		return savedBook;
 	}
 
 	@Override
-	public List<Book> search() {
+	public List<BookDto> search(List<SearchDto> searchModel) {
 		
-		return null;
+		List<QueryBuilder> qbList = new ArrayList<QueryBuilder>();
+		
+		for (SearchDto sdto : searchModel) {
+			qbList.add(QueryBuilders.matchQuery(sdto.getField(), sdto.getValue()).operator(AND)
+					.fuzziness(Fuzziness.TWO).prefixLength(1));
+		}
+		
+		BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+
+		for (int i = 0; i < searchModel.size(); i++) {
+			if (searchModel.get(i).getOperator().equals("AND")) {
+				bqb.must(qbList.get(i));
+			} else {
+				bqb.should(qbList.get(i));
+			}
+		}
+
+		SearchQuery sq = new NativeSearchQuery(bqb);
+
+		List<BookDto> returnBooks = operations.queryForList(sq, BookDto.class);
+
+		/*List<Book> books = new ArrayList<Book>();
+		
+		for(BookDto booksDto : returnBooks){
+			Book book = bookRepository.findOne(booksDto.getId());
+			books.add(book);
+		}*/
+		
+		return returnBooks;
+
+	}
+
+	@Override
+	public List<BookDto> findAll() {
+		Iterable<BookDto> returnBooks = bookESRepository.findAll();
+		List<BookDto> books = new ArrayList<BookDto>();
+		returnBooks.forEach(books::add);
+		/*for(BookDto booksDto : returnBooks){
+			books.add(mapper.fromBookDtoToBook(booksDto));
+		}*/
+ 		return books;
 	}
 
 }

@@ -8,4 +8,5 @@ import ftn.upp.app.model.Category;
 @Repository
 public interface CategoryRepository extends CrudRepository<Category, Integer>{
 
+	public Category findByName(String name);
 }

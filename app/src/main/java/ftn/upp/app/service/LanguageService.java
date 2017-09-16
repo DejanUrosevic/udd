@@ -9,4 +9,6 @@ public interface LanguageService {
 	public Language findOne(Integer id);
 	
 	public List<Language> findAll();
+	
+	public Language findByName(String name);
 }

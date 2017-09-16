@@ -26,9 +26,10 @@ public class Category implements Serializable{
 	@Column(name = "name", length = 30, nullable = false)
 	private String name;
 	
+	/*
 	@OneToMany(fetch=FetchType.EAGER, mappedBy = "category")
 	public List<Book> books = new ArrayList<Book>();
-
+	 */
 	public int getId() {
 		return id;
 	}
@@ -49,7 +50,7 @@ public class Category implements Serializable{
 		super();
 	}
 
-	public List<Book> getBooks() {
+	/*public List<Book> getBooks() {
 		return books;
 	}
 
@@ -90,5 +91,5 @@ public class Category implements Serializable{
 			return false;
 		return true;
 	}
-	
+	*/
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import ftn.upp.app.model.Book;
 
 @Repository
-public interface BookRepository extends CrudRepository<Book, Integer>{
+public interface BookRepository extends CrudRepository<Book, Long>{
 
 }

@@ -8,4 +8,5 @@ import ftn.upp.app.model.Language;
 @Repository
 public interface LanguageRespository extends CrudRepository<Language, Integer>{
 
+	public Language findByName(String name);
 }
