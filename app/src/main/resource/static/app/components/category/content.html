@@ -12,7 +12,40 @@
 			
 			<br ng-if="cac.rola === 'admin'" />
 			
-			<div class="row" ng-repeat="category in cac.categories" ng-if="cac.rola === 'admin'">
+			<div class="table-responsive">          
+				<table class="table" ng-if="cac.rola === 'admin'">
+			    	<thead>
+			      		<tr>
+			        		<th>Name</th>
+					        <th colspan="2"></th>
+			  			</tr>
+			    	</thead>
+			    	<tbody>
+			      		<tr ng-repeat="category in cac.categories">
+							<th>{{category.name}}</th>
+					        <th><button class="btn btn-primary" type="submit" ng-click="cac.books(category.id)">Books</button></th>
+					        <th><button class="btn btn-primary" type="submit" ng-click="cac.update(category.id)">Update category</button></th>
+			      		</tr>
+			    	</tbody>
+			  	</table>
+			  	
+			  	<table class="table" ng-if="cac.rola === 'preplatnik' || cac.rola === 'posetilac'">
+			    	<thead>
+			      		<tr>
+			        		<th>Name</th>
+					        <th></th>
+			  			</tr>
+			    	</thead>
+			    	<tbody>
+			      		<tr ng-repeat="category in cac.categories">
+							<th>{{category.name}}</th>
+					        <th><button class="btn btn-primary" type="submit" ng-click="cac.books(category.id)">Books</button></th>
+			      		</tr>
+			    	</tbody>
+			  	</table>
+			  </div>
+			
+			<!--  <div class="row" ng-repeat="category in cac.categories" ng-if="cac.rola === 'admin'">
 				<br/>
 				<div class="col-md-3 col-md-offset-3">
 					<p class="p-text">{{category.name}}</p>
@@ -33,7 +66,7 @@
 				<div class="col-md-1">
 					<button class="btn btn-primary" type="submit" ng-click="cac.books(category.id)">Books</button>
 				</div>
-			</div>
+			</div>-->
 		</div>
 	</section>
 </div>

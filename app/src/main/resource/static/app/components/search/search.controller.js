@@ -9,11 +9,7 @@
 	function SearchController($scope, $http, $state) {
 		
 		var sec = this;
-		sec.search = Search;
-		sec.category = Category;
-		sec.profil = Profil;
-		sec.users = Users;
-		sec.singOut = SingOut;
+		sec.books = null;
 		
 		sec.rola = localStorage.getItem('rola');
 		
@@ -24,31 +20,64 @@
 		$http.defaults.headers.common.Authorization = 'Bearer '	+ localStorage.getItem('key');
 		sec.token = localStorage.getItem('key');
 		
+		sec.search = Search;
+		
 		function Search(){
-			$state.go('home');
-		}
-		
-		function Category(){
-			$state.go('category');
-		}
-		
-		function Profil(){
-			$state.go('profile');
-		}
-		
-		function Users(){
-			$state.go('users');
-		}
-		
-		function Books() {
-			$state.go('books');
-		}
-		
-		function SingOut(){
-			sec.token = null;
-			$http.defaults.headers.common.Authorization = '';
-			localStorage.clear();
-			$state.go('login');
+			var searchUrl = "http://localhost:8080/book/search";
+			var SearchDto = [];
+			
+			if(sec.titleSearch != "" && sec.titleSearch != null && sec.titleSearch != undefined && sec.titleOperator != "" && sec.titleOperator != null && sec.titleOperator != undefined){
+				var titleSearchDto = {
+						"field":"title",
+						"value":sec.titleSearch,
+						"operator":sec.titleOperator
+				}
+				SearchDto.push(titleSearchDto);
+			}
+			
+			if(sec.authorSearch != "" && sec.authorSearch != null && sec.authorSearch != undefined && sec.authorOperator != "" && sec.authorOperator != null && sec.authorOperator != undefined){
+				var authorSearchDto = {
+						"field":"author",
+						"value":sec.authorSearch,
+						"operator":sec.authorOperator
+				}
+				SearchDto.push(authorSearchDto);
+			}
+			
+			if(sec.keywordsSearch != "" && sec.keywordsSearch != null && sec.keywordsSearch != undefined && sec.keywordsOperator != "" && sec.keywordsOperator != null && sec.keywordsOperator != undefined){
+				var keywordsSearchDto = {
+						"field":"keywords",
+						"value":sec.keywordsSearch,
+						"operator":sec.keywordsOperator
+				}
+				SearchDto.push(keywordsSearchDto);
+			}
+			
+			if(sec.languageSearch != "" && sec.languageSearch != null && sec.languageSearch != undefined && sec.languageOperator != "" && sec.languageOperator != null && sec.languageOperator != undefined){
+				var languageSearchDto = {
+						"field":"language",
+						"value":sec.languageSearch,
+						"operator":sec.languageOperator
+				}
+				SearchDto.push(languageSearchDto);
+			}
+			
+			if(sec.contentSearch != "" && sec.contentSearch != null && sec.contentSearch != undefined && sec.contentOperator != "" && sec.contentOperator != null && sec.contentOperator != undefined){
+				var contentSearchDto = {
+						"field":"content",
+						"value":sec.contentSearch,
+						"operator":sec.contentOperator
+				}
+				SearchDto.push(contentSearchDto);
+			}
+			
+			$http.post(searchUrl, SearchDto)
+	        .then(function(data){
+	        	sec.books = data.data;
+	        })
+	        .catch(function(){
+	        
+	        });
 		}
 	}
 })();

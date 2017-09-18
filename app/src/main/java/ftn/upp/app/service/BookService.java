@@ -17,7 +17,15 @@ public interface BookService {
 	
 	public Book save(Book book);
 	
+	public Book update(Book book);
+	
 	public List<BookDto> search(List<SearchDto> searchModel);
 	
 	public List<BookDto> findAll();
+	
+	public Book findOne(Long id);
+	
+	public BookDto findOneES(Long id);
+	
+	public void deleteAllES();
 }

@@ -12,9 +12,9 @@
 			url: '/books',
 			views:{
 				navbar: {
-					templateUrl: "app/components/search/navbar.html",
-					controller : 'SearchController',
-					controllerAs : 'sec'
+					templateUrl: "app/components/home/navbar.html",
+					controller : 'HomeController',
+					controllerAs : 'hoc'
 				},
 				content: {
 					templateUrl: "app/components/books/content.html",
@@ -29,12 +29,29 @@
 			url: '/books/new',
 			views:{
 				navbar: {
-					templateUrl: "app/components/search/navbar.html",
-					controller : 'SearchController',
-					controllerAs : 'sec'
+					templateUrl: "app/components/home/navbar.html",
+					controller : 'HomeController',
+					controllerAs : 'hoc'
 				},
 				content: {
 					templateUrl: "app/components/books/new-book.html",
+					controller : 'BooksController',
+					controllerAs : 'boc'
+				},
+				footer: {
+				}
+			}
+		})
+		.state("updateBook", {
+			url: '/book/:id',
+			views:{
+				navbar: {
+					templateUrl: "app/components/home/navbar.html",
+					controller : 'HomeController',
+					controllerAs : 'hoc'
+				},
+				content: {
+					templateUrl: "app/components/books/update-book.html",
 					controller : 'BooksController',
 					controllerAs : 'boc'
 				},

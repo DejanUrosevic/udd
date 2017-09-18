@@ -1,15 +1,16 @@
 (function(){
+		
 	"use strict";
 	
 	angular
-	.module('upp-ebook.search')
+	.module('upp-ebook.home')
 	.config(config);
-	
+		
 	config.$inject = ['$urlRouterProvider', '$stateProvider'];
 	function config($urlRouterProvider, $stateProvider){
 		$stateProvider
-		.state("search", {
-			url: '/search',
+		.state("home", {
+			url: '/home',
 			views:{
 				navbar: {
 					templateUrl: "app/components/home/navbar.html",
@@ -17,13 +18,13 @@
 					controllerAs : 'hoc'
 				},
 				content: {
-					templateUrl: "app/components/search/content.html",
-					controller : 'SearchController',
-					controllerAs : 'sec'
+					templateUrl: "app/components/home/content.html",
+					controller : 'HomeController',
+					controllerAs : 'hoc'
 				},
 				footer: {
 				}
 			}
 		});
 	};
-})()
+})();

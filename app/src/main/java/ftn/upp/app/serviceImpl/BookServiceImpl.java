@@ -166,4 +166,30 @@ public class BookServiceImpl implements BookService{
  		return books;
 	}
 
+	@Override
+	public Book findOne(Long id) {
+		return bookRepository.findOne(id);
+	}
+
+	@Override
+	public BookDto findOneES(Long id) {
+		return bookESRepository.findOne(id);
+	}
+
+	@Override
+	public void deleteAllES() {
+		bookESRepository.deleteAll();
+	}
+
+	@Override
+	public Book update(Book book) {
+		Book savedBook = bookRepository.save(book);
+		operations.putMapping(BookDto.class);
+		BookDto bookDto = mapper.fromBookToBookDto(savedBook);
+		bookDto.setContent(book.getContent());
+		bookESRepository.save(bookDto);
+		return savedBook;
+	}
+
+	
 }

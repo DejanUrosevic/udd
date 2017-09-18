@@ -356,6 +356,10 @@ a:hover, a:active { color:#fff; text-decoration: underline; }
 	background:rgba(255,255,0,.9);
 }
 
+.container {
+    width: auto;
+}
+
 .title2 {
 	font-family: 'Wire One', Helvetica, Arial, sans-serif;
 	font-weight:normal;

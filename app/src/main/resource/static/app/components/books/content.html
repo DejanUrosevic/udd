@@ -11,7 +11,86 @@
 				<button class="btn btn-primary" type="submit" ng-click="boc.addBook()">Add new book</button>
 			</div>
 		</div>
-
+		
+		<br/>
+		
+		<div class="table-responsive">          
+			<table class="table" ng-if="boc.rola === 'admin'">
+		    	<thead>
+		      		<tr>
+		        		<th>Title</th>
+		        		<th>Author</th>
+		        		<th>Categor</th>
+				        <th>Language</th>
+				        <th>Publication year</th>
+				        <th colspan="2"></th>
+		  			</tr>
+		    	</thead>
+		    	<tbody>
+		      		<tr ng-repeat="book in boc.books">
+						<th>{{book.title}}</th>
+				        <th>{{book.author}}</th>
+				        <th>{{book.category}}</th>
+				        <th>{{book.language}}</th>
+				        <th>{{book.publicationYear}}</th>
+				        <th><button class="btn btn-primary" type="submit">Download</button></th>
+				        <th><button class="btn btn-primary" type="submit" ng-click="boc.update(book.id)">Update book</button></th>
+		      		</tr>
+		    	</tbody>
+		  	</table>
+		  	<table class="table" ng-if="boc.rola === 'preplatnik' || boc.rola === 'posetilac'">
+		    	<thead>
+		      		<tr>
+		        		<th>Title</th>
+		        		<th>Author</th>
+		        		<th>Categor</th>
+				        <th>Language</th>
+				        <th>Publication year</th>
+				        <th></th>
+		  			</tr>
+		    	</thead>
+		    	<tbody>
+		      		<tr ng-repeat="book in boc.books">
+						<th>{{book.title}}</th>
+				        <th>{{book.author}}</th>
+				        <th>{{book.category}}</th>
+				        <th>{{book.language}}</th>
+				        <th>{{book.publicationYear}}</th>
+				        <th><button class="btn btn-primary" type="submit">Download</button></th>
+		      		</tr>
+		    	</tbody>
+		  	</table>
+		  </div>
+		</div>
+		<!--  
+		<div class="row" ng-repeat="book in boc.books" ng-if="boc.rola === 'admin'">
+			<br/>
+			<div class="col-md-2">
+				<p class="p-text">{{book.title}}</p>
+			</div>
+			<div class="col-md-2">
+				<p class="p-text">{{book.author}}</p>
+			</div>		
+			<div class="col-md-1">
+				<button class="btn btn-primary" type="submit">Download</button>
+			</div>
+			<div class="col-md-1">
+				<button class="btn btn-primary" type="submit" ng-click="boc.update(book.id)">Update book</button>
+			</div>
+		</div>
+			
+		<div class="row" ng-repeat="book in boc.books" ng-if="boc.rola === 'preplatnik' || boc.rola === 'posetilac'">
+			<br/>
+			<div class="col-md-3 col-md-offset-3">
+				<p class="p-text">{{book.title}}</p>
+			</div>
+			<div class="col-md-3 col-md-offset-3">
+				<p class="p-text">{{book.author}}</p>
+			</div>		
+			<div class="col-md-1">
+				<button class="btn btn-primary" type="submit" ng-click="">Download</button>
+			</div>
+		</div>-->
 		
 			
 		</div>

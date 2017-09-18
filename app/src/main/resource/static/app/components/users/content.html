@@ -11,7 +11,32 @@
 			</div>
 			
 			<br/>
-			
+
+			<div class="table-responsive">          
+				<table class="table" ng-if="usc.rola === 'admin'">
+			    	<thead>
+			      		<tr>
+			        		<th>Firstname</th>
+			        		<th>Lastname</th>
+			        		<td>Username</td>
+			        		<th>Category</th>
+			        		<th>Type</th>
+					        <th></th>
+			  			</tr>
+			    	</thead>
+			    	<tbody>
+			      		<tr ng-repeat="user in usc.users">
+							<th>{{user.firstname}}</th>
+							<th>{{user.lastname}}</th>
+							<th>{{user.username}}</th>
+							<th>{{user.category.name}}</th>
+							<th>{{user.type.name}}</th>
+					        <th><button class="btn btn-primary" type="submit" ng-click="usc.changeUser(user.id)">Change user data</button></th>
+			      		</tr>
+			    	</tbody>
+			  	</table>
+			</div>
+			<!--  
 			<div class="row" ng-repeat="user in usc.users" ng-if="usc.rola === 'admin'">
 				<br/>
 				<div class="col-md-2 col-md-offset-2">
@@ -30,6 +55,7 @@
 					<button class="btn btn-primary" type="submit" ng-click="usc.changeUser(user.id)">Change user data</button>
 				</div>
 			</div>
+			-->
 		</div>
 	</section>
 </div>

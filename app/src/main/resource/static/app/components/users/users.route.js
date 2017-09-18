@@ -12,9 +12,9 @@
 			url: '/users',
 			views:{
 				navbar: {
-					templateUrl: "app/components/search/navbar.html",
-					controller : 'SearchController',
-					controllerAs : 'sec'
+					templateUrl: "app/components/home/navbar.html",
+					controller : 'HomeController',
+					controllerAs : 'hoc'
 				},
 				content: {
 					templateUrl: "app/components/users/content.html",
@@ -29,9 +29,9 @@
 			url: '/users/new',
 			views:{
 				navbar: {
-					templateUrl: "app/components/search/navbar.html",
-					controller : 'SearchController',
-					controllerAs : 'sec'
+					templateUrl: "app/components/home/navbar.html",
+					controller : 'HomeController',
+					controllerAs : 'hoc'
 				},
 				content: {
 					templateUrl: "app/components/users/new-user.html",
@@ -46,9 +46,9 @@
 			url: '/users/:id',
 			views:{
 				navbar: {
-					templateUrl: "app/components/search/navbar.html",
-					controller : 'SearchController',
-					controllerAs : 'sec'
+					templateUrl: "app/components/home/navbar.html",
+					controller : 'HomeController',
+					controllerAs : 'hoc'
 				},
 				content: {
 					templateUrl: "app/components/users/new-user.html",

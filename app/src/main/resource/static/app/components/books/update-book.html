@@ -2,24 +2,10 @@
 	<section class="section" id="profile">
 		<div class="container okvir">
 		
-			<h5 class="text-center title2" >Add new book</h5>
+			<h4 class="text-center title2">Update book</h4>
 			
 			<br/>
 
-			<form accept-charset="UTF-8" enctype="multipart/form-data">
-				<div class="row">
-					<div class="col-md-2 col-md-offset-3">
-						<p class="p-text">File: </p>
-					</div>
-					<div class="col-md-4">
-						<input ng-change="boc.upload() class="form-control input-md" type="file" class="form-control input-md" file-model = "myFile" ng-model="boc.book.file" >
-					</div>
-					<div>
-						<button class="btn btn-primary" type="submit" ng-click="boc.upload()">Upload</button>
-					</div>	
-				</div>
-			</form>
-			
 			<div class="row">
 				<div class="col-sm-2 col-md-offset-3">    
 					<p class="p-text">Title: </p> 
@@ -74,12 +60,14 @@
 				</div>
 			</div>
 			
-			<br/>
-			<br/>
 			
+			<br/>			
+			<br/>
+
 			<div class="text-center">
-				<button class="btn btn-primary" type="submit" ng-click="boc.saveBook()">Save</button>
+				<button class="btn btn-primary" type="submit" ng-click="boc.bookUpdate()">Update</button>
 			</div>
+			
 		</div>
 	</section>
 </div>

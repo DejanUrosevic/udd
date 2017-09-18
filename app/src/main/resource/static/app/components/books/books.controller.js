@@ -5,8 +5,8 @@
 		.module('upp-ebook.books')
 		.controller('BooksController', BooksController);
 	
-	BooksController.$inject = ['$scope', '$http', '$state', 'fileUpload'];
-	function BooksController($scope, $http, $state, fileUpload) {
+	BooksController.$inject = ['$scope', '$http', '$state', 'fileUpload', '$stateParams'];
+	function BooksController($scope, $http, $state, fileUpload, $stateParams) {
 		
 		var boc = this;
 		
@@ -30,6 +30,21 @@
 		boc.upload = Upload;
 		boc.addBook = AddBook;
 		boc.saveBook = SaveBook;
+		boc.update = Update;
+		boc.bookUpdate = UpdateBook;
+		
+		if(!angular.equals({}, $stateParams)){
+			var id = $stateParams.id;
+			$http.get('http://localhost:8080/book/'+id)
+			.then(function(data){
+				boc.newBook = data.data;
+			});
+		}
+				
+		$http.get('http://localhost:8080/book/all')
+		.then(function(data){
+			boc.books = data.data;
+		});
 		
 		$http.get('http://localhost:8080/category/')
 		.then(function(data){
@@ -78,7 +93,19 @@
 	        });
 			console.log(boc.newBook);
 		}
+	
+		function Update(id){
+			localStorage.setItem('addBool', false);
+			localStorage.setItem('updateBool', true);
+			$state.go('updateBook', {id:id});
+		}
 		
-		
+		function UpdateBook(){
+			var uploadUrl = "http://localhost:8080/book/update";
+			$http.post(uploadUrl, boc.newBook)
+			.then(function(data){
+				$state.go('books');
+			});
+		}
 	};
 })();

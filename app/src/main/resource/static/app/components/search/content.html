@@ -2,24 +2,120 @@
 <section class="section" id="head">
 	<div class="container okvir">
 
-		<div class="row">
-			<div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 text-center">	
-
-				<!-- Site Title, your name, HELLO msg, etc. -->
-				<h1 class="title">Welcome to E-book</h1>
-				<h2 class="subtitle">Be free to search book.</h2>
-
-				<!-- Short introductory (optional) -->
-				<h3 class="tagline">
-					Try our search to find your favorite book.
-				</h3>
-				
-				<!-- Nice place to describe your site in a sentence or two -->
-				<p><a href="/download/" class="btn btn-default btn-lg">Download template now</a></p>
+		<h3 class="text-center title">Search</h3>
 	
-			</div> <!-- /col -->
-		</div> <!-- /row -->
-	
+		<div class="table-responsive">          
+			<table class="table">
+				<thead>
+			      	<tr>
+			        	<th></th>
+						<th>Value</th>
+						<th>Operator</th>
+			  		</tr>
+			    </thead>
+			    <tbody>
+			    	<tr>
+						<th>Title</th>
+					   	<th><input type="text" class="form-control input-md" ng-model="sec.titleSearch"></th>
+					    <th><select class="form-control input-md" ng-model="sec.titleOperator">
+					    		<option value="AND">AND</option>
+					    		<option value="OR">OR</option>
+					    	</select>
+					    </th>
+			      	</tr>
+			      	<tr>
+						<th>Author</th>
+					   	<th><input type="text" class="form-control input-md" ng-model="sec.authorSearch"></th>
+					    <th><select class="form-control input-md" ng-model="sec.authorOperator">
+					    		<option value="AND">AND</option>
+					    		<option value="OR">OR</option>
+					    	</select>
+					    </th>
+			      	</tr>
+			      	<tr>
+						<th>Keywords</th>
+					   	<th><input type="text" class="form-control input-md" ng-model="sec.keywordsSearch"></th>
+					    <th><select class="form-control input-md" ng-model="sec.keywordsOperator">
+					    		<option value="AND">AND</option>
+					    		<option value="OR">OR</option>
+					    	</select>
+					    </th>
+			      	</tr>
+			      	<tr>
+						<th>Language</th>
+					   	<th><input type="text" class="form-control input-md" ng-model="sec.languageSearch"></th>
+					    <th><select class="form-control input-md" ng-model="sec.languageOperator">
+					    		<option value="AND">AND</option>
+					    		<option value="OR">OR</option>
+					    	</select>
+					    </th>
+			      	</tr>
+			      	<tr>
+						<th>Content</th>
+					   	<th><textarea type="text" class="form-control input-md" ng-model="sec.contentSearch"></textarea></th>
+					    <th><select class="form-control" ng-model="sec.contentOperator">
+					    		<option value="AND">AND</option>
+					    		<option value="OR">OR</option>
+					    	</select>
+					    </th>
+			      	</tr>
+			    </tbody>
+			</table>
+		</div>
+		
+		<div class="text-center" >
+			<button class="btn btn-primary" type="submit" ng-click="sec.search()">Search</button>
+		</div>
+		
+		<br/>
+		<br/>
+		<div class="table-responsive">          
+			<table class="table" ng-if="sec.rola === 'admin'">
+		    	<thead>
+		      		<tr>
+		        		<th>Title</th>
+		        		<th>Author</th>
+		        		<th>Categor</th>
+				        <th>Language</th>
+				        <th>Publication year</th>
+				        <th colspan="2"></th>
+		  			</tr>
+		    	</thead>
+		    	<tbody>
+		      		<tr ng-repeat="book in sec.books">
+						<th>{{book.title}}</th>
+				        <th>{{book.author}}</th>
+				        <th>{{book.category}}</th>
+				        <th>{{book.language}}</th>
+				        <th>{{book.publicationYear}}</th>
+				        <th><button class="btn btn-primary" type="submit">Download</button></th>
+				        <th><button class="btn btn-primary" type="submit" ng-click="boc.update(book.id)">Update book</button></th>
+		      		</tr>
+		    	</tbody>
+		  	</table>
+		  	<table class="table" ng-if="sec.rola === 'preplatnik' || sec.rola === 'posetilac'">
+		    	<thead>
+		      		<tr>
+		        		<th>Title</th>
+		        		<th>Author</th>
+		        		<th>Categor</th>
+				        <th>Language</th>
+				        <th>Publication year</th>
+				        <th></th>
+		  			</tr>
+		    	</thead>
+		    	<tbody>
+		      		<tr ng-repeat="book in sec.books">
+						<th>{{book.title}}</th>
+				        <th>{{book.author}}</th>
+				        <th>{{book.category}}</th>
+				        <th>{{book.language}}</th>
+				        <th>{{book.publicationYear}}</th>
+				        <th><button class="btn btn-primary" type="submit">Download</button></th>
+		      		</tr>
+		    	</tbody>
+		  	</table>
+		  </div>
 	</div>
 </section>
 </div>
