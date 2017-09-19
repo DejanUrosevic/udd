@@ -32,6 +32,7 @@
 		boc.saveBook = SaveBook;
 		boc.update = Update;
 		boc.bookUpdate = UpdateBook;
+		boc.download = Download;
 		
 		if(!angular.equals({}, $stateParams)){
 			var id = $stateParams.id;
@@ -105,6 +106,14 @@
 			$http.post(uploadUrl, boc.newBook)
 			.then(function(data){
 				$state.go('books');
+			});
+		}
+		
+		function Download(id){
+			var downloadUrl = "http://localhost:8080/book/download/"+id;
+			$http.get(downloadUrl)
+			.then(function(date){
+				console.log("Dsdasd");
 			});
 		}
 	};

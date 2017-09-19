@@ -14,9 +14,11 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.pdfbox.io.IOUtils;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
@@ -27,6 +29,7 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
@@ -189,6 +192,23 @@ public class BookServiceImpl implements BookService{
 		bookDto.setContent(book.getContent());
 		bookESRepository.save(bookDto);
 		return savedBook;
+	}
+
+	@Override
+	public List<BookDto> findByCategoryES(String category) {
+		return bookESRepository.findByCategory(category);
+	}
+
+	@Override
+	public File downloadBook(Long id) {
+		
+		Book book = findOne(id);
+		File pdf = new File("C:\\Users\\Dejan\\git\\udd\\app\\src\\main\\resource\\pdf\\" + book.getFilename());
+		if(!pdf.exists()){
+			return null;	
+		}
+		
+		return pdf;
 	}
 
 	

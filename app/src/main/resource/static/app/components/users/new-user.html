@@ -59,7 +59,7 @@
 					<p class="p-text">Type: </p>
 				</div>
 				<div class="col-md-3">
-					<select ng-options="type as type.name for type in usc.types track by type.id" ng-model="usc.user.type"></select>
+					<select class="form-control input-md" ng-options="type as type.name for type in usc.types track by type.id" ng-model="usc.user.type"></select>
 				</div>	
 			</div>
 			
@@ -70,9 +70,10 @@
 					<p class="p-text">Category: </p>
 				</div>
 				<div class="col-md-3">
-					<select ng-options="category as category.name for category in usc.categories track by category.id" ng-model="usc.user.category"></select>
+					<select class="form-control input-md" ng-options="category as category.name for category in usc.categories track by category.id" ng-model="usc.user.category"></select>
 				</div>	
 			</div>
+			
 			
 			<br/>
 			

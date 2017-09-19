@@ -22,13 +22,25 @@
 		cac.update = Update;
 		cac.saveCategory = SaveCategory;
 		cac.updateCategory = UpdateCategory;
+		cac.updateBook = UpdateBook;
 		
 		if(!angular.equals({}, $stateParams)){
-			var id = $stateParams.id;
-			$http.get('http://localhost:8080/category/'+id)
-			.then(function(data){
-				cac.category = data.data;
-			});
+			if($stateParams.id != null && $stateParams.id != undefined){
+				var id = $stateParams.id;
+				$http.get('http://localhost:8080/category/'+id)
+				.then(function(data){
+					cac.category = data.data;
+				});
+			}
+			
+			if($stateParams.categoryId != null && $stateParams.categoryId != undefined){
+				var categoryId = $stateParams.categoryId;
+				$http.get('http://localhost:8080/book/search/'+categoryId+'/books')
+				.then(function(data){
+					cac.categoryBooks = data.data;
+				});
+			}
+			
 		}
 		
 		if(localStorage.getItem('addBool') !== null){
@@ -51,7 +63,7 @@
 		}
 		
 		function Books(id){
-			$state.go('categoryBooks', {id:id});
+			$state.go('categoryBooks', {categoryId:id});
 		}
 		
 		function Update(id){
@@ -77,6 +89,12 @@
 			});
 			
 			$state.go('category');
+		}
+		
+		function UpdateBook(id){
+			localStorage.setItem('addBool', false);
+			localStorage.setItem('updateBool', true);
+			$state.go('updateBook', {id:id});
 		}
 	}
 })()

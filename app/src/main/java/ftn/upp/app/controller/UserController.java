@@ -175,7 +175,7 @@ public class UserController {
 		}
 		
 		try {
-			int cat = json.getInt("category");
+			Long cat = json.getLong("category");
 			user.setCategory(categoryService.findOne(cat));
 		} catch (Exception e) {
 			user.setCategory(null);
@@ -207,7 +207,7 @@ public class UserController {
 		}
 		
 		try {
-			int cat = json.getInt("category");
+			Long cat = json.getLong("category");
 			user.setCategory(categoryService.findOne(cat));
 		} catch (Exception e) {
 			user.setCategory(null);

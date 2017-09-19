@@ -1,0 +1,60 @@
+<div>	
+	<section class="section" id="profile">
+		<div class="container okvir">
+			
+			<br/>
+			
+			<h3 class="text-center title">Books</h3>
+		
+			<br/>
+		
+			<div class="table-responsive">          
+				<table class="table" ng-if="cac.rola === 'admin'">
+			    	<thead>
+			      		<tr>
+			        		<th>Title</th>
+			        		<th>Author</th>
+			        		<th>Category</th>
+					        <th>Language</th>
+					        <th>Publication year</th>
+					        <th colspan="2"></th>
+			  			</tr>
+			    	</thead>
+			    	<tbody>
+			      		<tr ng-repeat="book in cac.categoryBooks">
+							<th>{{book.title}}</th>
+					        <th>{{book.author}}</th>
+					        <th>{{book.category}}</th>
+					        <th>{{book.language}}</th>
+					        <th>{{book.publicationYear}}</th>
+					        <th><button class="btn btn-primary" type="submit">Download</button></th>
+					        <th><button class="btn btn-primary" type="submit" ng-click="cac.updateBook(book.id)">Update book</button></th>
+			      		</tr>
+			    	</tbody>
+			  	</table>
+			  	<table class="table" ng-if="cac.rola === 'preplatnik' || cac.rola === 'posetilac'">
+			    	<thead>
+			      		<tr>
+			        		<th>Title</th>
+			        		<th>Author</th>
+			        		<th>Categor</th>
+					        <th>Language</th>
+					        <th>Publication year</th>
+					        <th></th>
+			  			</tr>
+			    	</thead>
+			    	<tbody>
+			      		<tr ng-repeat="book in cac.categoryBooks">
+							<th>{{book.title}}</th>
+					        <th>{{book.author}}</th>
+					        <th>{{book.category}}</th>
+					        <th>{{book.language}}</th>
+					        <th>{{book.publicationYear}}</th>
+					        <th><button class="btn btn-primary" type="submit">Download</button></th>
+			      		</tr>
+			    	</tbody>
+			  	</table>
+			  </div>
+		</div>
+	</section>
+</div>

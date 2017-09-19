@@ -48,7 +48,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Category> getCategory(@PathVariable("id") Integer id){
+	public ResponseEntity<Category> getCategory(@PathVariable("id") Long id){
 		
 		return new ResponseEntity<Category>(categoryService.findOne(id), HttpStatus.OK);
 	}
@@ -61,7 +61,7 @@ public class CategoryController {
 		Category c = new Category();
 		c.setName(json.getString("name"));
 		
-		categoryService.saveOrUpdate(c, json.getInt("id"));
+		categoryService.saveOrUpdate(c, json.getLong("id"));
 		
 		return new ResponseEntity<List<Category>>(categoryService.findAll(), HttpStatus.OK);
 	}

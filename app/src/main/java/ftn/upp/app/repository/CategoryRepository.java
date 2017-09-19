@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import ftn.upp.app.model.Category;
 
 @Repository
-public interface CategoryRepository extends CrudRepository<Category, Integer>{
+public interface CategoryRepository extends CrudRepository<Category, Long>{
 
 	public Category findByName(String name);
 }

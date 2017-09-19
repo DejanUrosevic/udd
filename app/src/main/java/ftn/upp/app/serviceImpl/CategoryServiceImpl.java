@@ -16,7 +16,7 @@ public class CategoryServiceImpl implements CategoryService{
 	CategoryRepository categoryRepository;
 
 	@Override
-	public void saveOrUpdate(Category category, Integer id) {
+	public void saveOrUpdate(Category category, Long id) {
 		
 		if(id == null){
 			categoryRepository.save(category);
@@ -35,7 +35,7 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public Category findOne(Integer id) {
+	public Category findOne(Long id) {
 		
 		return categoryRepository.findOne(id);
 	}

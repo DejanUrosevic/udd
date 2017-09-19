@@ -33,7 +33,7 @@
 				        <th>{{book.category}}</th>
 				        <th>{{book.language}}</th>
 				        <th>{{book.publicationYear}}</th>
-				        <th><button class="btn btn-primary" type="submit">Download</button></th>
+				        <th><button class="btn btn-primary" type="submit" ng-click="boc.download(book.id)">Download</button></th>
 				        <th><button class="btn btn-primary" type="submit" ng-click="boc.update(book.id)">Update book</button></th>
 		      		</tr>
 		    	</tbody>

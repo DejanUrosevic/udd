@@ -1,5 +1,6 @@
 package ftn.upp.app.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -28,4 +29,8 @@ public interface BookService {
 	public BookDto findOneES(Long id);
 	
 	public void deleteAllES();
+	
+	public List<BookDto> findByCategoryES(String category);
+	
+	public File downloadBook(Long id);
 }
