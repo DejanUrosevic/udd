@@ -27,7 +27,7 @@
 					        <th>{{book.category}}</th>
 					        <th>{{book.language}}</th>
 					        <th>{{book.publicationYear}}</th>
-					        <th><button class="btn btn-primary" type="submit">Download</button></th>
+					        <th><a ng-if="cac.category == '' || cac.category.name == book.category" ng-click="cac.download(book.id, book.filename)"><button class="btn btn-primary">Download</button></a></th>
 					        <th><button class="btn btn-primary" type="submit" ng-click="cac.updateBook(book.id)">Update book</button></th>
 			      		</tr>
 			    	</tbody>
@@ -50,7 +50,7 @@
 					        <th>{{book.category}}</th>
 					        <th>{{book.language}}</th>
 					        <th>{{book.publicationYear}}</th>
-					        <th><button class="btn btn-primary" type="submit">Download</button></th>
+					        <th><a ng-if="cac.category == '' || cac.category.name == book.category" ng-click="cac.download(book.id, book.filename)"><button class="btn btn-primary">Download</button></a></th>
 			      		</tr>
 			    	</tbody>
 			  	</table>

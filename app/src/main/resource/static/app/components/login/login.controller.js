@@ -13,6 +13,7 @@
 		lic.singup = SingUp;
 		lic.login = LogIn;
 		lic.checkRoles = CheckRoles;
+		lic.checkCategory = CheckCategory;
 		
 		function SingUp(){
 			$http.post('http://localhost:8080/user/singup',{firstname: $scope.user.username,
@@ -56,6 +57,23 @@
 			$http.get('http://localhost:8080/api/role')
 			.then(function(data){
 				localStorage.setItem('rola', data.data.role);
+				lic.checkCategory();
+			});
+		}
+		
+		function CheckCategory(){
+			if(localStorage.getItem("key") === null || localStorage.getItem("key") === undefined){
+				localStorage.clear();
+				$state.go('login');
+			}
+			
+			$http.get('http://localhost:8080/api/category')
+			.then(function(data){
+				if(data.data == null && data.data == undefined){
+					localStorage.setItem('category', '');
+				}else{
+					localStorage.setItem('category', JSON.stringify(data.data));
+				}
 				$state.go('home');
 			});
 		}

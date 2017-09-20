@@ -53,8 +53,13 @@ public class UserController {
 		User user = userService.logIn(json.getString("username"), json.getString("password"));
 		
 		if(user != null){
-			String token = Jwts.builder().setSubject(user.getUsername()).claim("roles", user.getType().getName())
-					.setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact();
+			String token = Jwts.builder()
+					.setSubject(user.getUsername())
+					.claim("roles", user.getType().getName())
+					.claim("userId", user.getId())
+					.setIssuedAt(new Date())
+					.signWith(SignatureAlgorithm.HS256, "secretkey")
+					.compact();
 			return new ResponseEntity<LoginResponse>(new LoginResponse(token), HttpStatus.OK);
 		}
 		

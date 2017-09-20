@@ -16,6 +16,7 @@
 		cac.token = localStorage.getItem('key');
 		
 		cac.rola = localStorage.getItem('rola');
+		boc.category = JSON.parse(localStorage.getItem('category'));
 		
 		cac.addCategory = AddCategory;
 		cac.books = Books;
@@ -23,6 +24,7 @@
 		cac.saveCategory = SaveCategory;
 		cac.updateCategory = UpdateCategory;
 		cac.updateBook = UpdateBook;
+		cac.download = Download;
 		
 		if(!angular.equals({}, $stateParams)){
 			if($stateParams.id != null && $stateParams.id != undefined){
@@ -95,6 +97,22 @@
 			localStorage.setItem('addBool', false);
 			localStorage.setItem('updateBool', true);
 			$state.go('updateBook', {id:id});
+		}
+		
+		function Download(id, filename){
+			var downloadUrl = "http://localhost:8080/book/download/"+id;
+			$http.get(downloadUrl)
+			.then(function(data){
+				var anchor = angular.element('<a/>');
+		        anchor.attr({
+		            href: 'data:application/octet-stream;base64,' + data.data,
+		            target: '_self',
+		            download: filename       
+		            });
+
+		        angular.element(document.body).append(anchor);
+		        anchor[0].click();
+			});
 		}
 	}
 })()

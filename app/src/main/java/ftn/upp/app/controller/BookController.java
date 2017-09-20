@@ -14,8 +14,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -106,26 +108,42 @@ public class BookController {
 		if(pdf == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		/*
-		InputStream is = new FileInputStream(pdf);
+
+		/*InputStream is = new FileInputStream(pdf);
 		byte[] book = IOUtils.toByteArray(is);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.parseMediaType("application/pdf"));
 		String filename = "book.pdf";
 		headers.setContentDispositionFormData(filename, filename);
-		headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+		headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");*/
+		
+		try {
+	        FileSystemResource fileResource = new FileSystemResource(pdf);
+
+	        byte[] base64Bytes = Base64.encodeBase64(IOUtils.toByteArray(fileResource.getInputStream()));
+
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.setContentType(MediaType.APPLICATION_PDF);
+	        headers.add("filename", fileResource.getFilename()+".pdf");
+
+	        //return new ResponseEntity<byte[]>(base64Bytes,headers, HttpStatus.OK);
+	        return ResponseEntity.ok().headers(headers).body(base64Bytes);
+	    } catch (IOException e) {
+	      
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	    }
 		
 		
-		return new ResponseEntity<byte[]>(book, headers, HttpStatus.OK);*/
+		
 		
 
-		//File fileToDownload = new File(filePathToBeServed);
+		/*File fileToDownload = new File(filePathToBeServed);
 		InputStream inputStream = new FileInputStream(pdf);
 		response.setContentType("application/force-download");
 		response.setHeader("Content-Disposition", "attachment; filename=book.pdf"); 
 		IOUtils.copy(inputStream, response.getOutputStream());
 		response.flushBuffer();
 		inputStream.close();
-		return new ResponseEntity<byte[]>(HttpStatus.OK);
+		return new ResponseEntity<byte[]>(HttpStatus.OK);*/
 	}
 }

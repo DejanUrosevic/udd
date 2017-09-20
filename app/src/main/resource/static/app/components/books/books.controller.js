@@ -17,6 +17,7 @@
 		$http.defaults.headers.common.Authorization = 'Bearer '	+ localStorage.getItem('key');
 		boc.token = localStorage.getItem('key');
 		boc.rola = localStorage.getItem('rola');
+		boc.category = JSON.parse(localStorage.getItem('category'));
 		
 		if(localStorage.getItem('addBool') !== null){
 			boc.addBool = localStorage.getItem('addBool');
@@ -109,11 +110,19 @@
 			});
 		}
 		
-		function Download(id){
+		function Download(id, filename){
 			var downloadUrl = "http://localhost:8080/book/download/"+id;
 			$http.get(downloadUrl)
-			.then(function(date){
-				console.log("Dsdasd");
+			.then(function(data){
+				var anchor = angular.element('<a/>');
+		        anchor.attr({
+		            href: 'data:application/octet-stream;base64,' + data.data,
+		            target: '_self',
+		            download: filename       
+		            });
+
+		        angular.element(document.body).append(anchor);
+		        anchor[0].click();
 			});
 		}
 	};
