@@ -5,8 +5,8 @@
 		.module('upp-ebook.search')
 		.controller('SearchController', SearchController);
 	
-	SearchController.$inject = ['$scope', '$http', '$state'];
-	function SearchController($scope, $http, $state) {
+	SearchController.$inject = ['$scope', '$http', '$state', '$sce'];
+	function SearchController($scope, $http, $state, $sce) {
 		
 		var sec = this;
 		sec.books = null;
@@ -74,6 +74,9 @@
 			$http.post(searchUrl, SearchDto)
 	        .then(function(data){
 	        	sec.books = data.data;
+	        	for(var i =0; i < sec.books.length; i++){
+	        		sec.books[i].highlight = $sec.trustAsHtml(sec.books[i].highlight);
+	        	}
 	        })
 	        .catch(function(){
 	        

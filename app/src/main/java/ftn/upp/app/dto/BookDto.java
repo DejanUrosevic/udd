@@ -15,6 +15,7 @@ public class BookDto {
 	private String category;
 	private String language;
 	private String content;
+	private String highlight;
 	
 	public Long getId() {
 		return id;
@@ -76,5 +77,12 @@ public class BookDto {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public String getHighlight() {
+		return highlight;
+	}
+	public void setHighlight(String highlight) {
+		this.highlight = highlight;
+	}
+	
 	
 }

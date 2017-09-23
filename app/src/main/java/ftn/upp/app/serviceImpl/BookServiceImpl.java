@@ -24,14 +24,24 @@ import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.pdf.PDFParser;
 import org.apache.tika.sax.BodyContentHandler;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.highlight.HighlightBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.SearchResultMapper;
+import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
+import org.springframework.data.elasticsearch.core.aggregation.impl.AggregatedPageImpl;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,6 +67,9 @@ public class BookServiceImpl implements BookService{
 	
 	@Autowired
 	ElasticsearchOperations operations;
+	
+	@Autowired
+	ElasticsearchTemplate elasticsearchTemplate;
 
 	Mapper mapper = new Mapper();
 	
@@ -143,9 +156,79 @@ public class BookServiceImpl implements BookService{
 			}
 		}
 
-		SearchQuery sq = new NativeSearchQuery(bqb);
+		SearchQuery sq = new NativeSearchQueryBuilder()
+				.withQuery(bqb)
+				.withHighlightFields(new HighlightBuilder.Field("content"), 
+									 new HighlightBuilder.Field("title"), 
+									 new HighlightBuilder.Field("keywords"), 
+									 new HighlightBuilder.Field("author"),
+									 new HighlightBuilder.Field("language"))
+				.build();
+		
+		Page<BookDto> booksEntities = elasticsearchTemplate.queryForPage(sq, BookDto.class, new SearchResultMapper() {
+			
+			@Override
+			public <T> AggregatedPage<T> mapResults(SearchResponse arg0, Class<T> arg1, Pageable arg2) {
+				List<BookDto> books = new ArrayList<BookDto>();
+				for(SearchHit searchHit : arg0.getHits()){
+					if(arg0.getHits().getHits().length <= 0){
+						return null;
+					}
+					
+					BookDto bookDto = new BookDto();
+					bookDto.setId(Long.parseLong(searchHit.getId()));
+					bookDto.setAuthor((String) searchHit.getSource().get("author"));
+					bookDto.setCategory((String) searchHit.getSource().get("category"));
+					bookDto.setContent((String)searchHit.getSource().get("content"));
+					bookDto.setFilename((String)searchHit.getSource().get("filename"));
+					bookDto.setKeywords((String)searchHit.getSource().get("keywords"));
+					bookDto.setLanguage((String)searchHit.getSource().get("language"));
+					bookDto.setMime((String)searchHit.getSource().get("mime"));
+					bookDto.setPublicationYear((int) searchHit.getSource().get("publicationYear"));
+					bookDto.setTitle((String)searchHit.getSource().get("title"));
+					if(searchHit.getHighlightFields() != null){
+						StringBuilder highlights = new StringBuilder("");
+						if(searchHit.getHighlightFields().get("content") != null){
+							highlights.append(searchHit.getHighlightFields().get("content").fragments()[0].toString());
+						}
+						
+						if(searchHit.getHighlightFields().get("title") != null){
+							highlights.append(searchHit.getHighlightFields().get("title").fragments()[0].toString());
+						}
+						
+						if(searchHit.getHighlightFields().get("keywords") != null){
+							highlights.append(searchHit.getHighlightFields().get("keywords").fragments()[0].toString());
+						}
+						
+						if(searchHit.getHighlightFields().get("author") != null){
+							highlights.append(searchHit.getHighlightFields().get("author").fragments()[0].toString());
+						}
+						
+						if(searchHit.getHighlightFields().get("language") != null){
+							highlights.append(searchHit.getHighlightFields().get("language").fragments()[0].toString());
+						}
+						
+						bookDto.setHighlight(highlights.toString());
+					}
+					books.add(bookDto);
+					
+				}
+				
+				if(books.size() > 0){
+					return new AggregatedPageImpl<T>((List<T>) books);
+				}
+				
+				return null;
+			}
+		});
 
-		List<BookDto> returnBooks = operations.queryForList(sq, BookDto.class);
+		List<BookDto> returnBooks = new ArrayList<BookDto>();
+		
+		if(booksEntities != null){
+			for(BookDto b : booksEntities){
+				returnBooks.add(b);
+			}
+		}
 
 		/*List<Book> books = new ArrayList<Book>();
 		
