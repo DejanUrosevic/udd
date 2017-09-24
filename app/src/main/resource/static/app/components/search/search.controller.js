@@ -5,8 +5,8 @@
 		.module('upp-ebook.search')
 		.controller('SearchController', SearchController);
 	
-	SearchController.$inject = ['$scope', '$http', '$state', '$sce'];
-	function SearchController($scope, $http, $state, $sce) {
+	SearchController.$inject = ['$scope', '$http', '$state'];
+	function SearchController($scope, $http, $state) {
 		
 		var sec = this;
 		sec.books = null;
@@ -19,8 +19,10 @@
 
 		$http.defaults.headers.common.Authorization = 'Bearer '	+ localStorage.getItem('key');
 		sec.token = localStorage.getItem('key');
+		sec.category = JSON.parse(localStorage.getItem('category'));
 		
 		sec.search = Search;
+		sec.download = Download;
 		
 		function Search(){
 			var searchUrl = "http://localhost:8080/book/search";
@@ -81,6 +83,22 @@
 	        .catch(function(){
 	        
 	        });
+		}
+		
+		function Download(id, filename){
+			var downloadUrl = "http://localhost:8080/book/download/"+id;
+			$http.get(downloadUrl)
+			.then(function(data){
+				var anchor = angular.element('<a/>');
+		        anchor.attr({
+		            href: 'data:application/octet-stream;base64,' + data.data,
+		            target: '_self',
+		            download: filename       
+		            });
+
+		        angular.element(document.body).append(anchor);
+		        anchor[0].click();
+			});
 		}
 	}
 })();

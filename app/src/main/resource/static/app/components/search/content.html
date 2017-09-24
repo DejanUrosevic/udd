@@ -82,15 +82,20 @@
 		  			</tr>
 		    	</thead>
 		    	<tbody>
-		      		<tr ng-repeat="book in sec.books">
-						<th>{{book.title}}</th>
-				        <th>{{book.author}}</th>
-				        <th>{{book.category}}</th>
-				        <th>{{book.language}}</th>
-				        <th>{{book.publicationYear}}</th>
-				        <th><button class="btn btn-primary" type="submit">Download</button></th>
-				        <th><button class="btn btn-primary" type="submit" ng-click="boc.update(book.id)">Update book</button></th>
-		      		</tr>
+		    		<div ng-repeat="book in sec.books">
+			      		<tr >
+							<th>{{book.title}}</th>
+					        <th>{{book.author}}</th>
+					        <th>{{book.category}}</th>
+					        <th>{{book.language}}</th>
+					        <th>{{book.publicationYear}}</th>
+					        <th><button class="btn btn-primary" type="submit">Download</button></th>
+					        <th><button class="btn btn-primary" type="submit" ng-click="boc.update(book.id)">Update book</button></th>
+			      		</tr>
+			      		<tr>
+			      			<th colspan="7" ng-bind-html="book.highlight | trustAsHTML"></th>
+			      		</tr>
+		      		</div>
 		    	</tbody>
 		  	</table>
 		  	<table class="table" ng-if="sec.rola === 'preplatnik' || sec.rola === 'posetilac'">
@@ -114,11 +119,17 @@
 				        <th><button class="btn btn-primary" type="submit">Download</button></th>
 		      		</tr>
 		    	</tbody>
-		  	</table> -->
+		  	</table> --> 
 		  	
-		  	<div class="raw" ng-repeat="book in sec.books">
-		  		<a>{{book.title}} {{book.author}}</a><br/>
-		  		<div class="raw" ng-bind-html="book.highlight"></div>
+		  	<div class="raw search" ng-repeat="book in sec.books">
+		  		<div ng-if="sec.category == '' || sec.category.name == book.category">
+		  			<a ng-click="sec.download(book.id, book.filename)">{{book.title}}, {{book.author}}, {{book.category}}, {{book.language}}, {{book.publicationYear}}</a><br/>
+		  		</div>
+		  		<div ng-if="sec.category != '' && sec.category.name != book.category">
+		  			<p>{{book.title}}, {{book.author}}, {{book.category}}, {{book.language}}, {{book.publicationYear}}</p>
+		  		</div>
+		  		
+		  		<div class="raw" ng-bind-html="book.highlight | trustAsHTML"></div>
 		  	</div>
 		  </div>
 	</div>

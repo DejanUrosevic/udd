@@ -187,25 +187,30 @@ public class BookServiceImpl implements BookService{
 					bookDto.setPublicationYear((int) searchHit.getSource().get("publicationYear"));
 					bookDto.setTitle((String)searchHit.getSource().get("title"));
 					if(searchHit.getHighlightFields() != null){
-						StringBuilder highlights = new StringBuilder("");
+						StringBuilder highlights = new StringBuilder("...");
 						if(searchHit.getHighlightFields().get("content") != null){
 							highlights.append(searchHit.getHighlightFields().get("content").fragments()[0].toString());
+							highlights.append("...");
 						}
 						
 						if(searchHit.getHighlightFields().get("title") != null){
 							highlights.append(searchHit.getHighlightFields().get("title").fragments()[0].toString());
+							highlights.append("...");
 						}
 						
 						if(searchHit.getHighlightFields().get("keywords") != null){
 							highlights.append(searchHit.getHighlightFields().get("keywords").fragments()[0].toString());
+							highlights.append("...");
 						}
 						
 						if(searchHit.getHighlightFields().get("author") != null){
 							highlights.append(searchHit.getHighlightFields().get("author").fragments()[0].toString());
+							highlights.append("...");
 						}
 						
 						if(searchHit.getHighlightFields().get("language") != null){
 							highlights.append(searchHit.getHighlightFields().get("language").fragments()[0].toString());
+							highlights.append("...");
 						}
 						
 						bookDto.setHighlight(highlights.toString());

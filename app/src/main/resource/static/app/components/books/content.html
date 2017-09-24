@@ -62,35 +62,7 @@
 		  	</table>
 		  </div>
 		</div>
-		<!--  
-		<div class="row" ng-repeat="book in boc.books" ng-if="boc.rola === 'admin'">
-			<br/>
-			<div class="col-md-2">
-				<p class="p-text">{{book.title}}</p>
-			</div>
-			<div class="col-md-2">
-				<p class="p-text">{{book.author}}</p>
-			</div>		
-			<div class="col-md-1">
-				<button class="btn btn-primary" type="submit">Download</button>
-			</div>
-			<div class="col-md-1">
-				<button class="btn btn-primary" type="submit" ng-click="boc.update(book.id)">Update book</button>
-			</div>
-		</div>
-			
-		<div class="row" ng-repeat="book in boc.books" ng-if="boc.rola === 'preplatnik' || boc.rola === 'posetilac'">
-			<br/>
-			<div class="col-md-3 col-md-offset-3">
-				<p class="p-text">{{book.title}}</p>
-			</div>
-			<div class="col-md-3 col-md-offset-3">
-				<p class="p-text">{{book.author}}</p>
-			</div>		
-			<div class="col-md-1">
-				<button class="btn btn-primary" type="submit" ng-click="">Download</button>
-			</div>
-		</div>-->
+	
 		<button ng-click="boc.geocode()">Find Novi Sad</button>
 			
 		</div>

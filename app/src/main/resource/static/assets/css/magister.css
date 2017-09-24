@@ -368,3 +368,17 @@ a:hover, a:active { color:#fff; text-decoration: underline; }
 	color:#000000; 
 	line-height:1em;
 }
+
+.search {
+	text-align: center;
+	font-family: "Times New Roman", Georgia, Serif;
+	font-weight:normal;
+	font-size:20px;
+	border-bottom: 1px;
+	color: aqua;
+}
+
+.search a,p{
+	text-decoration:underline;
+	font-weight:bold; 
+}
