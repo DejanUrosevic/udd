@@ -16,11 +16,11 @@
 </nav>-->
 <nav class="navbar navbar-inverse">
   <ul class="nav navbar-nav">
-    <li><a ng-click="hoc.books()">Books</a></li>
-	<li><a ng-click="hoc.search()">Search</a></li>
-	<li><a ng-click="hoc.category()">Category</a></li>
+    <li><a ng-click="hoc.books()">Knjige</a></li>
+	<li><a ng-click="hoc.search()">Pretraga</a></li>
+	<li><a ng-click="hoc.category()">Kategorije</a></li>
 	<li ng-if="hoc.rola === 'admin' || hoc.rola === 'preplatnik'"><a ng-click="hoc.profil()">Profil</a></li>
-	<li ng-if="hoc.rola === 'admin'"><a ng-click="hoc.users()">Users</a>
-	<li class=""><a ng-click="hoc.singOut()">Sing out</a></li>
+	<li ng-if="hoc.rola === 'admin'"><a ng-click="hoc.users()">Korisnici</a>
+	<li class=""><a ng-click="hoc.singOut()">Izloguj se</a></li>
   </ul>
 </nav>

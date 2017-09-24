@@ -35,6 +35,9 @@
 						"operator":sec.titleOperator
 				}
 				SearchDto.push(titleSearchDto);
+			} else if(((sec.titleSearch != "" && sec.titleSearch != null && sec.titleSearch != undefined) && (sec.titleOperator == "" || sec.titleOperator == null || sec.titleOperator != undefined)) 
+					|| ((sec.titleSearch == "" && sec.titleSearch == null && sec.titleSearch == undefined) && (sec.titleOperator != "" && sec.titleOperator != null && sec.titleOperator != undefined))) {
+				alert("Niste dobro popunili polje naslov, vrednost i operator moraju biti popunjeni")
 			}
 			
 			if(sec.authorSearch != "" && sec.authorSearch != null && sec.authorSearch != undefined && sec.authorOperator != "" && sec.authorOperator != null && sec.authorOperator != undefined){
@@ -44,6 +47,9 @@
 						"operator":sec.authorOperator
 				}
 				SearchDto.push(authorSearchDto);
+			} else if(((sec.authorSearch != "" && sec.authorSearch != null && sec.authorSearch != undefined) && (sec.authorOperator == "" || sec.authorOperator == null || sec.authorOperator != undefined)) 
+					|| ((sec.authorSearch == "" && sec.authorSearch == null && sec.authorSearch == undefined) && (sec.authorOperator != "" && sec.authorOperator != null && sec.authorOperator != undefined))) {
+				alert("Niste dobro popunili polje autor, vrednost i operator moraju biti popunjeni")
 			}
 			
 			if(sec.keywordsSearch != "" && sec.keywordsSearch != null && sec.keywordsSearch != undefined && sec.keywordsOperator != "" && sec.keywordsOperator != null && sec.keywordsOperator != undefined){
@@ -53,6 +59,9 @@
 						"operator":sec.keywordsOperator
 				}
 				SearchDto.push(keywordsSearchDto);
+			} else if(((sec.keywordsSearch != "" && sec.keywordsSearch != null && sec.keywordsSearch != undefined) && (sec.keywordsOperator == "" || sec.keywordsOperator == null || sec.keywordsOperator != undefined)) 
+					|| ((sec.keywordsSearch == "" && sec.keywordsSearch == null && sec.keywordsSearch == undefined) && (sec.keywordsSearch != undefined && sec.keywordsOperator != "" && sec.keywordsOperator != null && sec.keywordsOperator != undefined))) {
+				alert("Niste dobro popunili polje ključne reči, vrednost i operator moraju biti popunjeni")
 			}
 			
 			if(sec.languageSearch != "" && sec.languageSearch != null && sec.languageSearch != undefined && sec.languageOperator != "" && sec.languageOperator != null && sec.languageOperator != undefined){
@@ -62,6 +71,9 @@
 						"operator":sec.languageOperator
 				}
 				SearchDto.push(languageSearchDto);
+			} else if(((sec.languageSearch != "" && sec.languageSearch != null && sec.languageSearch != undefined) && (sec.languageOperator == "" || sec.languageOperator == null || sec.languageOperator != undefined)) 
+					|| ((sec.languageSearch == "" && sec.languageSearch == null && sec.languageSearch == undefined) && (sec.languageOperator != "" && sec.languageOperator != null && sec.languageOperator != undefined))) {
+				alert("Niste dobro popunili polje jezik, vrednost i operator moraju biti popunjeni")
 			}
 			
 			if(sec.contentSearch != "" && sec.contentSearch != null && sec.contentSearch != undefined && sec.contentOperator != "" && sec.contentOperator != null && sec.contentOperator != undefined){
@@ -71,6 +83,9 @@
 						"operator":sec.contentOperator
 				}
 				SearchDto.push(contentSearchDto);
+			} else if(((sec.contentSearch != "" && sec.contentSearch != null && sec.contentSearch != undefined) && (sec.contentOperator == "" || sec.contentOperator == null || sec.contentOperator != undefined)) 
+					|| ((sec.contentSearch == "" && sec.contentSearch == null && sec.contentSearch == undefined) && (sec.contentOperator != "" && sec.contentOperator != null && sec.contentOperator != undefined))) {
+				alert("Niste dobro popunili polje sadržaj, vrednost i operator moraju biti popunjeni")
 			}
 			
 			$http.post(searchUrl, SearchDto)

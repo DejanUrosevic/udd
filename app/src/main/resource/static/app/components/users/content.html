@@ -2,11 +2,11 @@
 	<section class="section" id="profile">
 		<div class="container okvir">
 		
-			<h3 class="text-center title">Users</h3>
+			<h3 class="text-center title">Korisnici</h3>
 			
 			<div class="row" ng-if="usc.rola === 'admin'">
 				<div class="text-center" >
-					<button class="btn btn-primary" type="submit" ng-click="usc.addUser()">Add new user</button>
+					<button class="btn btn-primary" type="submit" ng-click="usc.addUser()">Dodaj novog korisnika</button>
 				</div>
 			</div>
 			
@@ -16,11 +16,11 @@
 				<table class="table" ng-if="usc.rola === 'admin'">
 			    	<thead>
 			      		<tr>
-			        		<th>Firstname</th>
-			        		<th>Lastname</th>
-			        		<td>Username</td>
-			        		<th>Category</th>
-			        		<th>Type</th>
+			        		<th>Ime</th>
+			        		<th>Prezime</th>
+			        		<td>Korisničko ime</td>
+			        		<th>Kategorija</th>
+			        		<th>Tip</th>
 					        <th></th>
 			  			</tr>
 			    	</thead>
@@ -31,7 +31,7 @@
 							<th>{{user.username}}</th>
 							<th>{{user.category.name}}</th>
 							<th>{{user.type.name}}</th>
-					        <th><button class="btn btn-primary" type="submit" ng-click="usc.changeUser(user.id)">Change user data</button></th>
+					        <th><button class="btn btn-primary" type="submit" ng-click="usc.changeUser(user.id)">Promeni podatke</button></th>
 			      		</tr>
 			    	</tbody>
 			  	</table>

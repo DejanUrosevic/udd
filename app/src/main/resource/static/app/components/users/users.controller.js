@@ -11,6 +11,7 @@
 		var usc = this;
 		
 		usc.rola = localStorage.getItem('rola');
+		usc.user = null;
 		
 		if(localStorage.getItem('key') === null) {
 			$state.go('login');
@@ -65,26 +66,40 @@
 		};
 		
 		function SaveUser(){
-			$http.post('http://localhost:8080/user/save', {firstname: usc.user.firstname,
-														   lastname: usc.user.lastname,
-														   username: usc.user.username,
-														   type: usc.user.type.id,
-														   category: usc.user.category.id,
-														   password: usc.user.password});
+			if(usc.user != null && usc.user.username != "" && usc.user.username != null && usc.user.username != undefined 
+					&& usc.user.type.id != "" && usc.user.type.id != null && usc.user.type.id != undefined 
+					&& usc.user.password != "" && uusc.user.password != null && usc.user.password != undefined ){
+				$http.post('http://localhost:8080/user/save', {firstname: usc.user.firstname,
+															   lastname: usc.user.lastname,
+															   username: usc.user.username,
+															   type: usc.user.type.id,
+															   category: usc.user.category.id,
+															   password: usc.user.password});
+
+				$state.go('users');
+			}else{
+				alert("Korisničko ime, tip i šifra su obavezni!!!")
+			}
 			
-			$state.go('users');
 		}
 		
 		function UpdateUser(){
-			$http.post('http://localhost:8080/user/update', {id: usc.user.id,
-														   firstname: usc.user.firstname,
-														   lastname: usc.user.lastname,
-														   username: usc.user.username,
-														   type: usc.user.type.id,
-														   category: usc.user.category.id,
-														   password: usc.user.password});
+			if(usc.user != null && usc.user.username != "" && usc.user.username != null && usc.user.username != undefined 
+					&& usc.user.type.id != "" && usc.user.type.id != null && usc.user.type.id != undefined 
+					&& usc.user.password != "" && uusc.user.password != null && usc.user.password != undefined ){
+				$http.post('http://localhost:8080/user/update', {id: usc.user.id,
+					   firstname: usc.user.firstname,
+					   lastname: usc.user.lastname,
+					   username: usc.user.username,
+					   type: usc.user.type.id,
+					   category: usc.user.category.id,
+					   password: usc.user.password});
 
-			$state.go('users');
+				$state.go('users');
+			}else{
+				alert("Korisničko ime, tip i šifra su obavezni!!!")
+			}
+			
 		}
 	}
 })();

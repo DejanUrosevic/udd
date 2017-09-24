@@ -2,14 +2,14 @@
 	<section class="section" id="profile">
 		<div class="container okvir">
 		
-			<h5 class="text-center title2" ng-if="cac.addBool === 'true'">Add new category</h5>
-			<h4 class="text-center title2" ng-if="cac.updateBool === 'true'">Update category</h4>
+			<h5 class="text-center title2" ng-if="cac.addBool === 'true'">Dodavanje nove kategorije</h5>
+			<h4 class="text-center title2" ng-if="cac.updateBool === 'true'">Promena postojeće kategorije</h4>
 			
 			<br/>
 
 			<div class="row">
 				<div class="col-md-1 col-md-offset-4">
-					<p class="p-text">Name: </p>
+					<p class="p-text">Naziv: </p>
 				</div>
 				<div class="col-md-3">
 					<input type="text" class="form-control input-md" ng-model="cac.category.name">
@@ -19,11 +19,11 @@
 			<br/>
 			
 			<div class="text-center" ng-if="cac.addBool === 'true'">
-				<button class="btn btn-primary" type="submit" ng-click="cac.saveCategory()">Save</button>
+				<button class="btn btn-primary" type="submit" ng-click="cac.saveCategory()">Sačuvaj</button>
 			</div>
 			
 			<div class="text-center" ng-if="cac.updateBool === 'true'">
-				<button class="btn btn-primary" type="submit" ng-click="cac.updateCategory()">Update</button>
+				<button class="btn btn-primary" type="submit" ng-click="cac.updateCategory()">Promeni</button>
 			</div>
 			
 		</div>

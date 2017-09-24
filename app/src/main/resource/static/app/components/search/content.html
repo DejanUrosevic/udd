@@ -9,53 +9,58 @@
 				<thead>
 			      	<tr>
 			        	<th></th>
-						<th>Value</th>
+						<th>Vrednost</th>
 						<th>Operator</th>
 			  		</tr>
 			    </thead>
 			    <tbody>
 			    	<tr>
-						<th>Title</th>
+						<th>Naslov</th>
 					   	<th><input type="text" class="form-control input-md" ng-model="sec.titleSearch"></th>
 					    <th><select class="form-control input-md" ng-model="sec.titleOperator">
-					    		<option value="AND">AND</option>
-					    		<option value="OR">OR</option>
+					    		<option value=''></option>
+					    		<option value="AND">I</option>
+					    		<option value="OR">ILI</option>
 					    	</select>
 					    </th>
 			      	</tr>
 			      	<tr>
-						<th>Author</th>
+						<th>Autor</th>
 					   	<th><input type="text" class="form-control input-md" ng-model="sec.authorSearch"></th>
 					    <th><select class="form-control input-md" ng-model="sec.authorOperator">
-					    		<option value="AND">AND</option>
-					    		<option value="OR">OR</option>
+					    		<option value=''></option>
+					    		<option value="AND">I</option>
+					    		<option value="OR">ILI</option>
 					    	</select>
 					    </th>
 			      	</tr>
 			      	<tr>
-						<th>Keywords</th>
+						<th>Ključne reči</th>
 					   	<th><input type="text" class="form-control input-md" ng-model="sec.keywordsSearch"></th>
 					    <th><select class="form-control input-md" ng-model="sec.keywordsOperator">
-					    		<option value="AND">AND</option>
-					    		<option value="OR">OR</option>
+					    		<option value=''></option>
+					    		<option value="AND">I</option>
+					    		<option value="OR">ILI</option>
 					    	</select>
 					    </th>
 			      	</tr>
 			      	<tr>
-						<th>Language</th>
+						<th>Jezik</th>
 					   	<th><input type="text" class="form-control input-md" ng-model="sec.languageSearch"></th>
 					    <th><select class="form-control input-md" ng-model="sec.languageOperator">
-					    		<option value="AND">AND</option>
-					    		<option value="OR">OR</option>
+					    		<option value=''></option>
+					    		<option value="AND">I</option>
+					    		<option value="OR">ILI</option>
 					    	</select>
 					    </th>
 			      	</tr>
 			      	<tr>
-						<th>Content</th>
+						<th>Sadržaj</th>
 					   	<th><textarea type="text" class="form-control input-md" ng-model="sec.contentSearch"></textarea></th>
 					    <th><select class="form-control" ng-model="sec.contentOperator">
-					    		<option value="AND">AND</option>
-					    		<option value="OR">OR</option>
+					    		<option value=''></option>
+					    		<option value="AND">I</option>
+					    		<option value="OR">ILI</option>
 					    	</select>
 					    </th>
 			      	</tr>
@@ -64,7 +69,7 @@
 		</div>
 		
 		<div class="text-center" >
-			<button class="btn btn-primary" type="submit" ng-click="sec.search()">Search</button>
+			<button class="btn btn-primary" type="submit" ng-click="sec.search()">Traži</button>
 		</div>
 		
 		<br/>

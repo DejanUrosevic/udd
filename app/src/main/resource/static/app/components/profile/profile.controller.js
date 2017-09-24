@@ -48,7 +48,7 @@
 						prc.user = data.data;
 					});
 			}else{
-				alert("Your new password and repeat password doesn't same.");
+				alert("Šifre vam se ne podudaraju");
 			}
 			
 			

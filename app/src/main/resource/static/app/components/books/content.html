@@ -4,11 +4,11 @@
 			
 			<br/>
 			
-		<h3 class="text-center title">Books</h3>
+		<h3 class="text-center title">Knjige</h3>
 			
 		<div class="row" ng-if="boc.rola === 'admin'">
 			<div class="text-center" >
-				<button class="btn btn-primary" type="submit" ng-click="boc.addBook()">Add new book</button>
+				<button class="btn btn-primary" type="submit" ng-click="boc.addBook()">Dodaj novu knjigu</button>
 			</div>
 		</div>
 		
@@ -18,11 +18,11 @@
 			<table class="table" ng-if="boc.rola === 'admin'">
 		    	<thead>
 		      		<tr>
-		        		<th>Title</th>
-		        		<th>Author</th>
-		        		<th>Categor</th>
-				        <th>Language</th>
-				        <th>Publication year</th>
+		        		<th>Naslov</th>
+		        		<th>Autor</th>
+		        		<th>Kategorija</th>
+				        <th>Jezik</th>
+				        <th>Godina izdavnja</th>
 				        <th colspan="2"></th>
 		  			</tr>
 		    	</thead>
@@ -33,19 +33,19 @@
 				        <th>{{book.category}}</th>
 				        <th>{{book.language}}</th>
 				        <th>{{book.publicationYear}}</th>
-				        <th><a ng-if="boc.category == '' || boc.category.name == book.category" ng-click="boc.download(book.id, book.filename)"><button class="btn btn-primary">Download</button></a></th>
-				        <th><button class="btn btn-primary" type="submit" ng-click="boc.update(book.id)">Update book</button></th>
+				        <th><a ng-if="boc.category == '' || boc.category.name == book.category" ng-click="boc.download(book.id, book.filename)"><button class="btn btn-primary">Skini</button></a></th>
+				        <th><button class="btn btn-primary" type="submit" ng-click="boc.update(book.id)">Promeni podatke</button></th>
 		      		</tr>
 		    	</tbody>
 		  	</table>
 		  	<table class="table" ng-if="boc.rola === 'preplatnik' || boc.rola === 'posetilac'">
 		    	<thead>
 		      		<tr>
-		        		<th>Title</th>
-		        		<th>Author</th>
-		        		<th>Categor</th>
-				        <th>Language</th>
-				        <th>Publication year</th>
+		        		<th>Naslov</th>
+		        		<th>Autor</th>
+		        		<th>Kategorija</th>
+				        <th>Jezik</th>
+				        <th>Godina izdavnja</th>
 				        <th></th>
 		  			</tr>
 		    	</thead>
@@ -56,14 +56,12 @@
 				        <th>{{book.category}}</th>
 				        <th>{{book.language}}</th>
 				        <th>{{book.publicationYear}}</th>
-				        <th><a ng-if="boc.category == '' || boc.category.name == book.category" ng-click="boc.download(book.id, book.filename)"><button class="btn btn-primary">Download</button></a></th>
+				        <th><a ng-if="boc.category == '' || boc.category.name == book.category && boc.rola === 'preplatnik'" ng-click="boc.download(book.id, book.filename)"><button class="btn btn-primary">Skini</button></a></th>
 		      		</tr>
 		    	</tbody>
 		  	</table>
 		  </div>
 		</div>
-	
-		<button ng-click="boc.geocode()">Find Novi Sad</button>
 			
 		</div>
 	</section>

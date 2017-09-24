@@ -2,27 +2,27 @@
 	<section class="section" id="profile">
 		<div class="container okvir">
 		
-			<h5 class="text-center title2" >Add new book</h5>
+			<h5 class="text-center title2" >Dodajte novi knjigu</h5>
 			
 			<br/>
 
 			<form accept-charset="UTF-8" enctype="multipart/form-data">
 				<div class="row">
 					<div class="col-md-2 col-md-offset-3">
-						<p class="p-text">File: </p>
+						<p class="p-text">Pdf fajl *: </p>
 					</div>
 					<div class="col-md-4">
-						<input ng-change="boc.upload() class="form-control input-md" type="file" class="form-control input-md" file-model = "myFile" ng-model="boc.book.file" >
+						<input ng-change="boc.upload() class="form-control input-md" type="file" class="form-control input-md" file-model = "myFile" ng-model="boc.book.file" required>
 					</div>
 					<div>
-						<button class="btn btn-primary" type="submit" ng-click="boc.upload()">Upload</button>
+						<button class="btn btn-primary" type="submit" ng-click="boc.upload()">Pošalji</button>
 					</div>	
 				</div>
 			</form>
 			
 			<div class="row">
 				<div class="col-sm-2 col-md-offset-3">    
-					<p class="p-text">Title: </p> 
+					<p class="p-text">Naslov*: </p> 
 				</div>
 				<div class="col-sm-4">
 					<input type="text" class="form-control input-md" ng-model="boc.newBook.title">
@@ -31,7 +31,7 @@
 			
 			<div class="row">
 				<div class="col-sm-2 col-md-offset-3">    
-					<p class="p-text">Author: </p> 
+					<p class="p-text">Autor: </p> 
 				</div>
 				<div class="col-sm-4">
 					<input type="text" class="form-control input-md" ng-model="boc.newBook.author">
@@ -40,7 +40,7 @@
 			
 			<div class="row">
 				<div class="col-sm-2 col-md-offset-3">    
-					<p class="p-text">Keywords: </p> 
+					<p class="p-text">Ključne reči: </p> 
 				</div>
 				<div class="col-sm-4">
 					<input type="text" class="form-control input-md" ng-model="boc.newBook.keywords">
@@ -49,7 +49,7 @@
 			
 			<div class="row">
 				<div class="col-sm-2 col-md-offset-3">    
-					<p class="p-text">Publication year: </p> 
+					<p class="p-text">Godina objavljivanja: </p> 
 				</div>
 				<div class="col-sm-4">
 					<input type="text" class="form-control input-md" ng-model="boc.newBook.publicationYear">
@@ -58,19 +58,19 @@
 			
 			<div class="row">
 				<div class="col-sm-2 col-md-offset-3">    
-					<p class="p-text">Category: </p> 
+					<p class="p-text">Kategorija*: </p> 
 				</div>
 				<div class="col-sm-4">
-					<select class="form-control input-md" ng-options = "category as category.name for category in boc.categories track by category.id" ng-model="boc.newBook.category"></select>
+					<select class="form-control input-md" ng-options = "category as category.name for category in boc.categories track by category.id" ng-model="boc.newBook.category" required></select>
 				</div>
 			</div>
 			
 			<div class="row">
 				<div class="col-sm-2 col-md-offset-3">    
-					<p class="p-text">Language: </p> 
+					<p class="p-text">Jezik*: </p> 
 				</div>
 				<div class="col-sm-4">
-					<select class="form-control input-md" ng-options = "language as language.name for language in boc.languages track by language.id" ng-model="boc.newBook.language"></select>
+					<select class="form-control input-md" ng-options = "language as language.name for language in boc.languages track by language.id" ng-model="boc.newBook.language" required></select>
 				</div>
 			</div>
 			
@@ -78,7 +78,7 @@
 			<br/>
 			
 			<div class="text-center">
-				<button class="btn btn-primary" type="submit" ng-click="boc.saveBook()">Save</button>
+				<button class="btn btn-primary" type="submit" ng-click="boc.saveBook()">Sačuvaj</button>
 			</div>
 		</div>
 	</section>

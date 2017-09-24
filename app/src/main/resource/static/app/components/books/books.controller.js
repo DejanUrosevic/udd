@@ -34,7 +34,6 @@
 		boc.update = Update;
 		boc.bookUpdate = UpdateBook;
 		boc.download = Download;
-		boc.geocode = geocode;
 		
 		if(!angular.equals({}, $stateParams)){
 			var id = $stateParams.id;
@@ -92,7 +91,7 @@
 	        	$state.go('books');
 	        })
 	        .catch(function(){
-	        
+	        	alert("Morate upload-ovati fajl knjige (mora biti pdf), popuniti naslov, kategoriju i jezik.")
 	        });
 			console.log(boc.newBook);
 		}
@@ -108,7 +107,10 @@
 			$http.post(uploadUrl, boc.newBook)
 			.then(function(data){
 				$state.go('books');
-			});
+			})
+			.catch(function(){
+	        	alert("Morate popuniti naslov, kategoriju i jezik.")
+	        });;
 		}
 		
 		function Download(id, filename){
@@ -124,13 +126,6 @@
 
 		        angular.element(document.body).append(anchor);
 		        anchor[0].click();
-			});
-		}
-		
-		function geocode(){
-			$http.get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyBNGZxS8WdVccqAVQjl1fxYlAOIsrtbErs')
-			.then(function(mapData) {
-			      angular.extend($scope, mapData);
 			});
 		}
 	};
