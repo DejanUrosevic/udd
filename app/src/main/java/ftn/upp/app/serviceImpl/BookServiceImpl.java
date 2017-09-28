@@ -143,7 +143,7 @@ public class BookServiceImpl implements BookService{
 		
 		for (SearchDto sdto : searchModel) {
 			qbList.add(QueryBuilders.matchQuery(sdto.getField(), sdto.getValue()).operator(AND)
-					.fuzziness(Fuzziness.TWO).prefixLength(1));
+					.fuzziness(Fuzziness.AUTO).prefixLength(3));
 		}
 		
 		BoolQueryBuilder bqb = QueryBuilders.boolQuery();

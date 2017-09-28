@@ -16,7 +16,7 @@
 		cac.token = localStorage.getItem('key');
 		
 		cac.rola = localStorage.getItem('rola');
-		//cac.category = JSON.parse(localStorage.getItem('category'));
+		cac.category = JSON.parse(localStorage.getItem('category'));
 		
 		cac.addCategory = AddCategory;
 		cac.books = Books;

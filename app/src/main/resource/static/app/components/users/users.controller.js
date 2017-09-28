@@ -68,7 +68,7 @@
 		function SaveUser(){
 			if(usc.user != null && usc.user.username != "" && usc.user.username != null && usc.user.username != undefined 
 					&& usc.user.type.id != "" && usc.user.type.id != null && usc.user.type.id != undefined 
-					&& usc.user.password != "" && uusc.user.password != null && usc.user.password != undefined ){
+					&& usc.user.password != "" && usc.user.password != null && usc.user.password != undefined ){
 				$http.post('http://localhost:8080/user/save', {firstname: usc.user.firstname,
 															   lastname: usc.user.lastname,
 															   username: usc.user.username,
@@ -86,7 +86,7 @@
 		function UpdateUser(){
 			if(usc.user != null && usc.user.username != "" && usc.user.username != null && usc.user.username != undefined 
 					&& usc.user.type.id != "" && usc.user.type.id != null && usc.user.type.id != undefined 
-					&& usc.user.password != "" && uusc.user.password != null && usc.user.password != undefined ){
+					&& usc.user.password != "" && usc.user.password != null && usc.user.password != undefined ){
 				$http.post('http://localhost:8080/user/update', {id: usc.user.id,
 					   firstname: usc.user.firstname,
 					   lastname: usc.user.lastname,
